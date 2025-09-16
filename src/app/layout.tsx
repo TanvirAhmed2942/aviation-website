@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
+import Navbar from "./components/home/Hero/Navber";
+import Footer from "./components/Reusable/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,12 +25,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Set this to true when user is logged in, false when logged out
+  const isLoggedIn = false;
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {isLoggedIn ? <Header /> : null}
         {children}
+        <Footer />
       </body>
     </html>
   );

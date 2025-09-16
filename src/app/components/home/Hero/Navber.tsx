@@ -6,33 +6,62 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Globe, Phone } from 'lucide-react';
-import Image from 'next/image';
-import { useState } from 'react';
+import { ChevronDown, Globe, Phone } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 const Navbar = () => {
   const [selected, setSelected] = useState("ENG");
 
+  const links = [
+    {
+      label: "Charter",
+      href: "/charter",
+    },
+
+    {
+      label: "Empty Legs",
+      href: "/empty-legs",
+    },
+    {
+      label: "Helicopter",
+      href: "/helicopter",
+    },
+    {
+      label: "About",
+      href: "/about-us",
+    },
+    {
+      label: "Blog",
+      href: "/blog",
+    },
+  ];
   return (
     <header className="relative z-20 transition-all duration-1000 translate-y-0 opacity-100">
       <div className="flex justify-between items-center px-8 py-5 backdrop-blur-sm bg-white/5 border-b border-white/10">
         <nav className="flex items-center space-x-8">
-          {['Charter', 'Empty Legs', 'Helicopter', 'About', 'Blog'].map((item, index) => (
-            <a
-              key={item}
-              href="#"
+          {links.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
               className="text-white hover:text-blue-300 transition-all duration-300 hover:scale-105 relative group"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {item}
+              {item.label}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-300 group-hover:w-full transition-all duration-300"></span>
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Logo with animation */}
         <div className="flex items-center space-x-3 group cursor-pointer">
-          <Image src={"/images/logo.png"} width={250} height={100} alt='Website logo' />
+          <Image
+            src={"/images/logo.png"}
+            width={250}
+            height={100}
+            alt="Website logo"
+          />
         </div>
 
         <div className="flex items-center space-x-4 cursor-pointer">
@@ -45,9 +74,15 @@ const Navbar = () => {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="text-white bg-white/20 backdrop-blur-md cursor-pointer border-none rounded-md shadow-md">
-              <DropdownMenuItem onClick={() => setSelected("ENG")}>English</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSelected("FR")}>French</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSelected("ES")}>Spanish</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSelected("ENG")}>
+                English
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSelected("FR")}>
+                French
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSelected("ES")}>
+                Spanish
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 

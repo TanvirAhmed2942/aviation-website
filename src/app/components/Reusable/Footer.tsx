@@ -1,6 +1,15 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+  Twitter,
+} from "lucide-react";
 
 const Footer = () => {
   return (
@@ -13,7 +22,6 @@ const Footer = () => {
 
       <div className="relative z-10 container mx-auto py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-
           {/* Company Info */}
           <div className="lg:col-span-1 space-y-6">
             <div className="flex items-center space-x-2">
@@ -24,21 +32,35 @@ const Footer = () => {
             </div>
 
             <p className="text-blue-100 text-sm leading-relaxed">
-              Luxury aircraft charter at your fingertips. Experience premium aviation services with a focus on excellence, safety, and personalized travel solutions.
+              Luxury aircraft charter at your fingertips. Experience premium
+              aviation services with a focus on excellence, safety, and
+              personalized travel solutions.
             </p>
 
             {/* Social Media Icons */}
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a
+                href="#"
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
@@ -61,11 +83,46 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white">QUICK LINKS</h3>
             <ul className="space-y-3 text-blue-100">
-              <li><a href="#" className="hover:text-white transition-colors text-sm">Search Flights</a></li>
-              <li><a href="#" className="hover:text-white transition-colors text-sm">About</a></li>
-              <li><a href="#" className="hover:text-white transition-colors text-sm">Blog</a></li>
-              <li><a href="#" className="hover:text-white transition-colors text-sm">Contact Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors text-sm">FAQs</a></li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  Search Flights
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  FAQs
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -73,9 +130,30 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white">PARTNERS</h3>
             <ul className="space-y-3 text-blue-100">
-              <li><a href="#" className="hover:text-white transition-colors text-sm">Aviation Parts Executive</a></li>
-              <li><a href="#" className="hover:text-white transition-colors text-sm">NBAA</a></li>
-              <li><a href="#" className="hover:text-white transition-colors text-sm">NATA</a></li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  Aviation Parts Executive
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  NBAA
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-white transition-colors text-sm"
+                >
+                  NATA
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -85,20 +163,66 @@ const Footer = () => {
 
             <div className="space-y-4">
               <div>
-                <h4 className="text-blue-200 text-xs font-medium uppercase tracking-wide mb-2">DOMESTIC</h4>
+                <h4 className="text-blue-200 text-xs font-medium uppercase tracking-wide mb-2">
+                  DOMESTIC
+                </h4>
                 <ul className="space-y-2 text-blue-100">
-                  <li><a href="#" className="hover:text-white transition-colors text-sm">Los Angeles → Miami</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors text-sm">New York → Las Vegas</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors text-sm">San Francisco → Chicago</a></li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-white transition-colors text-sm"
+                    >
+                      Los Angeles → Miami
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-white transition-colors text-sm"
+                    >
+                      New York → Las Vegas
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-white transition-colors text-sm"
+                    >
+                      San Francisco → Chicago
+                    </a>
+                  </li>
                 </ul>
               </div>
 
               <div>
-                <h4 className="text-blue-200 text-xs font-medium uppercase tracking-wide mb-2">INTERNATIONAL</h4>
+                <h4 className="text-blue-200 text-xs font-medium uppercase tracking-wide mb-2">
+                  INTERNATIONAL
+                </h4>
                 <ul className="space-y-2 text-blue-100">
-                  <li><a href="#" className="hover:text-white transition-colors text-sm">Miami → Sao Paulo</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors text-sm">New York → Dubai</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors text-sm">Los Angeles → London</a></li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-white transition-colors text-sm"
+                    >
+                      Miami → Sao Paulo
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-white transition-colors text-sm"
+                    >
+                      New York → Dubai
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-white transition-colors text-sm"
+                    >
+                      Los Angeles → London
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -108,7 +232,9 @@ const Footer = () => {
           <div className="space-y-6">
             {/* Contact Info */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-4">CONTACT US</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">
+                CONTACT US
+              </h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-blue-100">
                   <Phone className="w-4 h-4 flex-shrink-0" />
@@ -132,8 +258,12 @@ const Footer = () => {
 
             {/* Newsletter */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-2">STAY UPDATED</h3>
-              <p className="text-blue-100 text-sm mb-4">Subscribe for discount alerts and future flights</p>
+              <h3 className="text-lg font-semibold text-white mb-2">
+                STAY UPDATED
+              </h3>
+              <p className="text-blue-100 text-sm mb-4">
+                Subscribe for discount alerts and future flights
+              </p>
 
               <div className="flex space-x-2">
                 <Input
@@ -141,21 +271,35 @@ const Footer = () => {
                   placeholder="Your email"
                   className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 focus:border-white focus:ring-white/20"
                 />
-                <Button size="icon" className="bg-white/20 hover:bg-white/30 border-0 flex-shrink-0">
+                <Button
+                  size="icon"
+                  className="bg-white/20 hover:bg-white/30 border-0 flex-shrink-0"
+                >
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Footer Bottom */}
         <div className="border-t border-white/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-blue-200 text-sm">© 2025 NexFlight. All rights reserved.</p>
+          <p className="text-blue-200 text-sm">
+            © 2025 NexFlight. All rights reserved.
+          </p>
           <div className="flex space-x-6 text-blue-200 text-sm">
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a
+              href="/terms-condition"
+              className="hover:text-white transition-colors"
+            >
+              Terms of Service
+            </a>
+            <a
+              href="/privacy-policy"
+              className="hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </a>
           </div>
         </div>
       </div>
