@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
-import Navbar from "./components/home/Hero/Navber";
 import Footer from "./components/Reusable/Footer";
 
 const geistSans = Geist({
@@ -26,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // Set this to true when user is logged in, false when logged out
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <html lang="en">
