@@ -2,9 +2,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Image from 'next/image';
+import Image from "next/image";
 import { useState } from "react";
-import { Card, CardFooter, CardHeader } from '../../components/ui/card';
+import { Card, CardFooter, CardHeader } from "../../components/ui/card";
+import { useRouter } from "next/navigation";
 
 // Mock data
 const blogPosts: Array<{
@@ -15,67 +16,76 @@ const blogPosts: Array<{
   date: string;
   category: string;
   author: string;
+  href: string;
 }> = [
-    {
-      id: 1,
-      title: "The Future of Private Aviation",
-      excerpt: "Discover how technology is shaping the future of private flights...",
-      image: "/images/blog/image1.jpg",
-      date: "March 15, 2025",
-      category: "Industry Trends",
-      author: "Alex Johnson",
-    },
-    {
-      id: 2,
-      title: "Top 5 Private Jet Destinations for 25",
-      excerpt: "Explore the most luxurious and exclusive destinations...",
-      image: "/images/blog/image2.jpg",
-      date: "March 10, 2025",
-      category: "Travel",
-      author: "Sarah Williams",
-    },
-    {
-      id: 3,
-      title: "Sustainable Aviation: The Green",
-      excerpt: "How private aviation is embracing sustainability...",
-      image: "/images/blog/image3.jpg",
-      date: "March 5, 2025",
-      category: "Sustainability",
-      author: "Michael Brown",
-    },
-    {
-      id: 4,
-      title: "Sustainable Aviation: The Green",
-      excerpt: "How private aviation is embracing sustainability...",
-      image: "/images/blog/image4.png",
-      date: "March 5, 2025",
-      category: "Sustainability",
-      author: "Michael Brown",
-    },
-    {
-      id: 5,
-      title: "The Future of Private Aviation",
-      excerpt: "Discover how technology is shaping the future of private flights...",
-      image: "/images/blog/image5.jpg",
-      date: "March 15, 2025",
-      category: "Industry Trends",
-      author: "Alex Johnson",
-    },
-    {
-      id: 6,
-      title: "Top 5 Private Jet Destinations for 25",
-      excerpt: "Explore the most luxurious and exclusive destinations...",
-      image: "/images/blog/image6.jpg",
-      date: "March 10, 2025",
-      category: "Travel",
-      author: "Sarah Williams",
-    },
-  ];
+  {
+    id: 1,
+    title: "The Future of Private Aviation",
+    excerpt:
+      "Discover how technology is shaping the future of private flights...",
+    image: "/images/blog/image1.jpg",
+    date: "March 15, 2025",
+    category: "Industry Trends",
+    author: "Alex Johnson",
+    href: "/blog/post-details/1234567890",
+  },
+  {
+    id: 2,
+    title: "Top 5 Private Jet Destinations for 25",
+    excerpt: "Explore the most luxurious and exclusive destinations...",
+    image: "/images/blog/image2.jpg",
+    date: "March 10, 2025",
+    category: "Travel",
+    author: "Sarah Williams",
+    href: "/blog/post-details/1234567890",
+  },
+  {
+    id: 3,
+    title: "Sustainable Aviation: The Green",
+    excerpt: "How private aviation is embracing sustainability...",
+    image: "/images/blog/image3.jpg",
+    date: "March 5, 2025",
+    category: "Sustainability",
+    author: "Michael Brown",
+    href: "/blog/post-details/1234567890",
+  },
+  {
+    id: 4,
+    title: "Sustainable Aviation: The Green",
+    excerpt: "How private aviation is embracing sustainability...",
+    image: "/images/blog/image4.png",
+    date: "March 5, 2025",
+    category: "Sustainability",
+    author: "Michael Brown",
+    href: "/blog/post-details/1234567890",
+  },
+  {
+    id: 5,
+    title: "The Future of Private Aviation",
+    excerpt:
+      "Discover how technology is shaping the future of private flights...",
+    image: "/images/blog/image5.jpg",
+    date: "March 15, 2025",
+    category: "Industry Trends",
+    author: "Alex Johnson",
+    href: "/blog/post-details/1234567890",
+  },
+  {
+    id: 6,
+    title: "Top 5 Private Jet Destinations for 25",
+    excerpt: "Explore the most luxurious and exclusive destinations...",
+    image: "/images/blog/image6.jpg",
+    date: "March 10, 2025",
+    category: "Travel",
+    author: "Sarah Williams",
+    href: "/blog/post-details/1234567890",
+  },
+];
 
 export default function BlogPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 6;
-
+  const router = useRouter();
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = blogPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -114,12 +124,20 @@ export default function BlogPage() {
                 <span>{post.category}</span>
               </div>
               <h3 className="font-semibold text-lg">{post.title}</h3>
-              <p className="text-sm text-muted-foreground mt-1">{post.excerpt}</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                {post.excerpt}
+              </p>
             </CardHeader>
             <CardFooter className="p-4 pt-0">
               <div className="text-sm w-full flex justify-between items-center ">
                 <span className="text-muted-foreground">By {post.author}</span>
-                <button type='button' className="text-sm border px-2 py-1 rounded cursor-pointer font-medium text-primary hover:underline">
+                <button
+                  type="button"
+                  className="text-sm border px-2 py-1 rounded cursor-pointer font-medium text-primary hover:underline"
+                  onClick={() => {
+                    router.push(post.href);
+                  }}
+                >
                   Read More
                 </button>
               </div>
