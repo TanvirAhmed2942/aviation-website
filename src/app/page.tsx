@@ -12,7 +12,7 @@ import Services from "./components/home/Services/Services";
 import TestimonialsSection from "./components/home/TestimonialsSection/TestimonialsSection";
 import UpcomingEvents from "./components/home/UpcomingEvents/UpcomingEvents";
 import WhyChooseNexFlight from "./components/home/WhyChooseNexFlight/WhyChooseNexFlight";
-import Footer from "./components/Reusable/Footer";
+// import Footer from "./components/Reusable/Footer";
 import BlogSection from "./components/home/BlogSection/BlogSection";
 import NetworkMap from "./components/home/NetworkMap/NetworkMap";
 

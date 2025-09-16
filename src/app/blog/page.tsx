@@ -107,7 +107,10 @@ export default function BlogPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentPosts.map((post) => (
-          <Card className="overflow-hidden p-0 transition-all hover:shadow-lg">
+          <Card
+            key={post.id}
+            className="overflow-hidden p-0 transition-all hover:shadow-lg"
+          >
             <div className="relative h-48 overflow-hidden">
               <Image
                 src={post.image}

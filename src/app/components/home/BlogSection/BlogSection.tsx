@@ -1,19 +1,22 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight } from 'lucide-react';
-import React from 'react';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
+import React from "react";
 
 const blogPosts = [
   {
     id: 1,
     title: "The Future of Private Aviation",
-    excerpt: "Discover how technology is shaping the future of private flights...",
+    excerpt:
+      "Discover how technology is shaping the future of private flights...",
     author: "Alex Johnson",
     date: "March 15, 2025",
+    readTime: "5 min read",
     category: "Industry Trends",
-    image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    categoryColor: "bg-blue-500"
+    image:
+      "https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    categoryColor: "bg-blue-500",
   },
   {
     id: 2,
@@ -21,9 +24,11 @@ const blogPosts = [
     excerpt: "Explore the most luxurious and exclusive destinations...",
     author: "Sarah Williams",
     date: "March 10, 2025",
+    readTime: "7 min read",
     category: "Travel",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    categoryColor: "bg-green-500"
+    image:
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    categoryColor: "bg-green-500",
   },
   {
     id: 3,
@@ -31,16 +36,27 @@ const blogPosts = [
     excerpt: "How private aviation is embracing sustainability...",
     author: "Michael Brown",
     date: "March 5, 2025",
+    readTime: "6 min read",
     category: "Sustainability",
-    image: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    categoryColor: "bg-emerald-500"
-  }
+    image:
+      "https://images.unsplash.com/photo-1540962351504-03099e0a754b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    categoryColor: "bg-emerald-500",
+  },
 ];
 
-
 type postType = {
-  post: any
-}
+  post: {
+    id: number;
+    title: string;
+    excerpt: string;
+    author: string;
+    date: string;
+    readTime: string;
+    category: string;
+    image: string;
+    categoryColor: string;
+  };
+};
 
 const BlogCard: React.FC<postType> = ({ post }) => {
   return (
@@ -58,7 +74,10 @@ const BlogCard: React.FC<postType> = ({ post }) => {
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
           <span>{post.date}</span>
           <span>•</span>
-          <Badge variant="secondary" className={`${post.categoryColor} text-white border-0 text-xs`}>
+          <Badge
+            variant="secondary"
+            className={`${post.categoryColor} text-white border-0 text-xs`}
+          >
             {post.category}
           </Badge>
         </div>

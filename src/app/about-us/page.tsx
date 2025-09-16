@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -62,8 +62,8 @@ const PrivateJetServices = () => {
         <div className="flex flex-col items-center justify-center pb-32 gap-6 h-[700px] ">
           <h1 className="text-5xl">About NEXFLIGHT</h1>
           <p className="text-xl">
-            We're revolutionizing private aviation by making luxury air travel
-            more accessible, efficient, and sustainable.
+            We&apos;re revolutionizing private aviation by making luxury air
+            travel more accessible, efficient, and sustainable.
           </p>
         </div>
       </section>
@@ -169,8 +169,8 @@ const PrivateJetServices = () => {
                   Sustainability
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  We're committed to reducing our environmental impact through
-                  sustainable practices and green initiatives.
+                  We&apos;re committed to reducing our environmental impact
+                  through sustainable practices and green initiatives.
                 </p>
               </div>
             </div>
@@ -371,7 +371,7 @@ const PrivateJetServices = () => {
 
               <AccordionItem value="item-2">
                 <AccordionTrigger className="text-left font-medium text-slate-800">
-                  What's included in the charter price?
+                  What&apos;s included in the charter price?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
                   Our charter price includes the aircraft, crew, fuel,
@@ -407,7 +407,7 @@ const PrivateJetServices = () => {
 
               <AccordionItem value="item-5">
                 <AccordionTrigger className="text-left font-medium text-slate-800">
-                  What's included in the charter price?
+                  What&apos;s included in the charter price?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
                   The charter price includes aircraft rental, professional crew,

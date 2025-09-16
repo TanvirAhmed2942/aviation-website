@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Minus, Plane, Plus } from 'lucide-react';
-import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Minus, Plane, Plus } from "lucide-react";
+import { useState } from "react";
 
 interface Airport {
   code: string;
@@ -18,45 +18,45 @@ interface FlightPath {
 }
 
 const airports: Airport[] = [
-  { code: 'SEA', name: 'Seattle', x: 15, y: 25 },
-  { code: 'SFO', name: 'San Francisco', x: 8, y: 45 },
-  { code: 'LAX', name: 'Los Angeles', x: 12, y: 55 },
-  { code: 'LAS', name: 'Las Vegas', x: 18, y: 52 },
-  { code: 'DEN', name: 'Denver', x: 35, y: 40 },
-  { code: 'DFW', name: 'Dallas', x: 40, y: 65 },
-  { code: 'IAH', name: 'Houston', x: 38, y: 72 },
-  { code: 'ORD', name: 'Chicago', x: 50, y: 32 },
-  { code: 'ATL', name: 'Atlanta', x: 62, y: 60 },
-  { code: 'MIA', name: 'Miami', x: 72, y: 85 },
-  { code: 'BOS', name: 'Boston', x: 78, y: 22 },
-  { code: 'JFK', name: 'New York', x: 75, y: 28 }
+  { code: "SEA", name: "Seattle", x: 15, y: 25 },
+  { code: "SFO", name: "San Francisco", x: 8, y: 45 },
+  { code: "LAX", name: "Los Angeles", x: 12, y: 55 },
+  { code: "LAS", name: "Las Vegas", x: 18, y: 52 },
+  { code: "DEN", name: "Denver", x: 35, y: 40 },
+  { code: "DFW", name: "Dallas", x: 40, y: 65 },
+  { code: "IAH", name: "Houston", x: 38, y: 72 },
+  { code: "ORD", name: "Chicago", x: 50, y: 32 },
+  { code: "ATL", name: "Atlanta", x: 62, y: 60 },
+  { code: "MIA", name: "Miami", x: 72, y: 85 },
+  { code: "BOS", name: "Boston", x: 78, y: 22 },
+  { code: "JFK", name: "New York", x: 75, y: 28 },
 ];
 
 const flightPaths: FlightPath[] = [
-  { from: 'LAX', to: 'JFK' },
-  { from: 'SFO', to: 'BOS' },
-  { from: 'SEA', to: 'MIA' },
-  { from: 'DEN', to: 'ATL' },
-  { from: 'ORD', to: 'LAX' },
-  { from: 'DFW', to: 'BOS' },
-  { from: 'LAX', to: 'MIA' },
-  { from: 'SFO', to: 'ORD' }
+  { from: "LAX", to: "JFK" },
+  { from: "SFO", to: "BOS" },
+  { from: "SEA", to: "MIA" },
+  { from: "DEN", to: "ATL" },
+  { from: "ORD", to: "LAX" },
+  { from: "DFW", to: "BOS" },
+  { from: "LAX", to: "MIA" },
+  { from: "SFO", to: "ORD" },
 ];
 
 const NetworkMap = () => {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
-  const [hoveredAirport, setHoveredAirport] = useState<Airport | null>(null);
+  // const [hoveredAirport, setHoveredAirport] = useState<Airport | null>(null);
 
   const handleZoomIn = () => {
-    setZoomLevel(prev => Math.min(prev + 0.2, 2));
+    setZoomLevel((prev) => Math.min(prev + 0.2, 2));
   };
 
   const handleZoomOut = () => {
-    setZoomLevel(prev => Math.max(prev - 0.2, 0.6));
+    setZoomLevel((prev) => Math.max(prev - 0.2, 0.6));
   };
 
   const getAirportPosition = (code: string): Airport | undefined => {
-    return airports.find(airport => airport.code === code);
+    return airports.find((airport) => airport.code === code);
   };
 
   return (
@@ -68,8 +68,8 @@ const NetworkMap = () => {
             Our Flight Network
           </h2>
           <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            Explore our extensive network of private flights connecting major cities across the
-            United States and international destinations
+            Explore our extensive network of private flights connecting major
+            cities across the United States and international destinations
           </p>
         </div>
 
@@ -81,7 +81,7 @@ const NetworkMap = () => {
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300"
               style={{
                 backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)), url("data:image/svg+xml,%3Csvg width='800' height='500' viewBox='0 0 800 500' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='800' height='500' fill='%23334155'/%3E%3Cpath d='M0 250C100 200 200 300 300 250C400 200 500 300 600 250C700 200 800 300 800 250V500H0V250Z' fill='%23475569' opacity='0.3'/%3E%3Cpath d='M0 300C150 250 300 350 450 300C600 250 750 350 800 300V500H0V300Z' fill='%2364748b' opacity='0.2'/%3E%3C/svg%3E")`,
-                transform: `scale(${zoomLevel})`
+                transform: `scale(${zoomLevel})`,
               }}
             />
 
@@ -117,10 +117,10 @@ const NetworkMap = () => {
                 style={{
                   left: `${airport.x}%`,
                   top: `${airport.y}%`,
-                  transform: `translate(-50%, -50%) scale(${zoomLevel})`
+                  transform: `translate(-50%, -50%) scale(${zoomLevel})`,
                 }}
-                onMouseEnter={() => setHoveredAirport(airport)}
-                onMouseLeave={() => setHoveredAirport(null)}
+                // onMouseEnter={() => setHoveredAirport(airport)}
+                // onMouseLeave={() => setHoveredAirport(null)}
               >
                 {/* Airport Dot */}
                 <div className="relative">
@@ -145,7 +145,7 @@ const NetworkMap = () => {
                   left: `${20 + i * 10}%`,
                   top: `${30 + (i % 3) * 15}%`,
                   animationDelay: `${i * 0.5}s`,
-                  animationDuration: '3s'
+                  animationDuration: "3s",
                 }}
               >
                 <Plane className="w-4 h-4 transform rotate-45" />
@@ -182,10 +182,14 @@ const NetworkMap = () => {
         {/* Network Stats */}
         <div className="text-center mb-8">
           <p className="text-gray-600 text-lg mb-6">
-            Our network connects over 5,000 airports worldwide, with real-time tracking and availability
+            Our network connects over 5,000 airports worldwide, with real-time
+            tracking and availability
           </p>
 
-          <Button size="lg" className="bg-blue-950 hover:bg-blue-900 text-white px-8 py-3">
+          <Button
+            size="lg"
+            className="bg-blue-950 hover:bg-blue-900 text-white px-8 py-3"
+          >
             Explore Available Routes
           </Button>
         </div>

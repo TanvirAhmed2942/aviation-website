@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -172,7 +172,7 @@ const socialPosts = [
 ];
 
 export default function ContactPage() {
-  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  // const [isScriptLoaded, setIsScriptLoaded] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

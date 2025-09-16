@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
 const CTASection = () => {
   return (
@@ -19,8 +19,9 @@ const CTASection = () => {
         </h2>
 
         <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto">
-          Whether you're planning your next journey or have questions about our services, our team is ready to assist you 24/7.
-          Discover the NexFlight difference today.
+          Whether you&apos;re planning your next journey or have questions about
+          our services, our team is ready to assist you 24/7. Discover the
+          NexFlight difference today.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

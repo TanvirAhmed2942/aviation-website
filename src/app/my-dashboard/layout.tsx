@@ -12,57 +12,64 @@ import {
   Users,
 } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-export default function Layout({ children }: any) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
   const [activeSection, setActiveSection] = useState("overview");
   const router = useRouter();
   const pathname = usePathname();
 
-  const menuItems = [
-    {
-      id: "overview",
-      icon: BarChart3,
-      label: "Overview",
-      route: "/my-dashboard/overview",
-    },
-    {
-      id: "bookings",
-      icon: Calendar,
-      label: "My Bookings",
-      route: "/my-dashboard/bookings",
-    },
-    {
-      id: "searches",
-      icon: Heart,
-      label: "Saved Searches",
-      route: "/my-dashboard/searches",
-    },
-    {
-      id: "flights",
-      icon: Bookmark,
-      label: "Saved Flights",
-      route: "/my-dashboard/flights",
-    },
-    {
-      id: "referrals",
-      icon: Users,
-      label: "Referrals",
-      route: "/my-dashboard/referrals",
-    },
-    {
-      id: "notifications",
-      icon: Bell,
-      label: "Notifications",
-      route: "/my-dashboard/notifications",
-    },
-    {
-      id: "settings",
-      icon: Settings,
-      label: "Settings",
-      route: "/my-dashboard/settings",
-    },
-  ];
+  const menuItems = useMemo(
+    () => [
+      {
+        id: "overview",
+        icon: BarChart3,
+        label: "Overview",
+        route: "/my-dashboard/overview",
+      },
+      {
+        id: "bookings",
+        icon: Calendar,
+        label: "My Bookings",
+        route: "/my-dashboard/bookings",
+      },
+      {
+        id: "searches",
+        icon: Heart,
+        label: "Saved Searches",
+        route: "/my-dashboard/searches",
+      },
+      {
+        id: "flights",
+        icon: Bookmark,
+        label: "Saved Flights",
+        route: "/my-dashboard/flights",
+      },
+      {
+        id: "referrals",
+        icon: Users,
+        label: "Referrals",
+        route: "/my-dashboard/referrals",
+      },
+      {
+        id: "notifications",
+        icon: Bell,
+        label: "Notifications",
+        route: "/my-dashboard/notifications",
+      },
+      {
+        id: "settings",
+        icon: Settings,
+        label: "Settings",
+        route: "/my-dashboard/settings",
+      },
+    ],
+    []
+  );
 
   // Update active section based on current pathname
   useEffect(() => {
@@ -70,7 +77,7 @@ export default function Layout({ children }: any) {
     if (currentMenuItem) {
       setActiveSection(currentMenuItem.id);
     }
-  }, [pathname]);
+  }, [pathname, menuItems]);
 
   const handleMenuItemClick = (itemId: string, route: string) => {
     setActiveSection(itemId);

@@ -1,14 +1,27 @@
 // app/components/ModalAuth.tsx
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useState } from "react";
-import { Checkbox } from '../../components/ui/checkbox';
+import { Checkbox } from "../../components/ui/checkbox";
 
 type AuthStep =
   | "login"
@@ -19,31 +32,31 @@ type AuthStep =
 
 // Country codes for phone input
 const countryCodes = [
-  { code: '+1', country: 'US', name: 'United States' },
-  { code: '+44', country: 'GB', name: 'United Kingdom' },
-  { code: '+91', country: 'IN', name: 'India' },
-  { code: '+86', country: 'CN', name: 'China' },
-  { code: '+81', country: 'JP', name: 'Japan' },
-  { code: '+49', country: 'DE', name: 'Germany' },
-  { code: '+33', country: 'FR', name: 'France' },
-  { code: '+39', country: 'IT', name: 'Italy' },
-  { code: '+34', country: 'ES', name: 'Spain' },
-  { code: '+7', country: 'RU', name: 'Russia' },
-  { code: '+55', country: 'BR', name: 'Brazil' },
-  { code: '+52', country: 'MX', name: 'Mexico' },
-  { code: '+61', country: 'AU', name: 'Australia' },
-  { code: '+82', country: 'KR', name: 'South Korea' },
-  { code: '+90', country: 'TR', name: 'Turkey' },
-  { code: '+971', country: 'AE', name: 'UAE' },
-  { code: '+966', country: 'SA', name: 'Saudi Arabia' },
-  { code: '+880', country: 'BD', name: 'Bangladesh' },
-  { code: '+92', country: 'PK', name: 'Pakistan' },
-  { code: '+62', country: 'ID', name: 'Indonesia' },
-  { code: '+60', country: 'MY', name: 'Malaysia' },
-  { code: '+65', country: 'SG', name: 'Singapore' },
-  { code: '+66', country: 'TH', name: 'Thailand' },
-  { code: '+84', country: 'VN', name: 'Vietnam' },
-  { code: '+63', country: 'PH', name: 'Philippines' },
+  { code: "+1", country: "US", name: "United States" },
+  { code: "+44", country: "GB", name: "United Kingdom" },
+  { code: "+91", country: "IN", name: "India" },
+  { code: "+86", country: "CN", name: "China" },
+  { code: "+81", country: "JP", name: "Japan" },
+  { code: "+49", country: "DE", name: "Germany" },
+  { code: "+33", country: "FR", name: "France" },
+  { code: "+39", country: "IT", name: "Italy" },
+  { code: "+34", country: "ES", name: "Spain" },
+  { code: "+7", country: "RU", name: "Russia" },
+  { code: "+55", country: "BR", name: "Brazil" },
+  { code: "+52", country: "MX", name: "Mexico" },
+  { code: "+61", country: "AU", name: "Australia" },
+  { code: "+82", country: "KR", name: "South Korea" },
+  { code: "+90", country: "TR", name: "Turkey" },
+  { code: "+971", country: "AE", name: "UAE" },
+  { code: "+966", country: "SA", name: "Saudi Arabia" },
+  { code: "+880", country: "BD", name: "Bangladesh" },
+  { code: "+92", country: "PK", name: "Pakistan" },
+  { code: "+62", country: "ID", name: "Indonesia" },
+  { code: "+60", country: "MY", name: "Malaysia" },
+  { code: "+65", country: "SG", name: "Singapore" },
+  { code: "+66", country: "TH", name: "Thailand" },
+  { code: "+84", country: "VN", name: "Vietnam" },
+  { code: "+63", country: "PH", name: "Philippines" },
 ];
 
 export default function ModalAuth() {
@@ -67,7 +80,8 @@ export default function ModalAuth() {
       if (!email) newErrors.email = "Email is required";
       if (!email.includes("@")) newErrors.email = "Please enter a valid email";
       if (!password) newErrors.password = "Password is required";
-      if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
+      if (password.length < 6)
+        newErrors.password = "Password must be at least 6 characters";
     }
 
     if (step === "register") {
@@ -75,8 +89,10 @@ export default function ModalAuth() {
       if (!lastName.trim()) newErrors.lastName = "Last name is required";
       if (!email) newErrors.email = "Email is required";
       if (!email.includes("@")) newErrors.email = "Please enter a valid email";
-      if (!phoneNumber.trim()) newErrors.phoneNumber = "Phone number is required";
-      if (phoneNumber.length < 10) newErrors.phoneNumber = "Please enter a valid phone number";
+      if (!phoneNumber.trim())
+        newErrors.phoneNumber = "Phone number is required";
+      if (phoneNumber.length < 10)
+        newErrors.phoneNumber = "Please enter a valid phone number";
     }
 
     if (step === "forgot-password") {
@@ -86,13 +102,16 @@ export default function ModalAuth() {
 
     if (step === "otp-verification") {
       const otpCode = otp.join("");
-      if (otpCode.length !== 4) newErrors.otp = "Please enter complete verification code";
+      if (otpCode.length !== 4)
+        newErrors.otp = "Please enter complete verification code";
     }
 
     if (step === "reset-password") {
       if (!password) newErrors.password = "Password is required";
-      if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
-      if (password !== confirmPassword) newErrors.confirmPassword = "Passwords do not match";
+      if (password.length < 6)
+        newErrors.password = "Password must be at least 6 characters";
+      if (password !== confirmPassword)
+        newErrors.confirmPassword = "Passwords do not match";
     }
 
     setErrors(newErrors);
@@ -109,21 +128,21 @@ export default function ModalAuth() {
 
     // Auto-focus next field
     if (value && index < 3) {
-      const inputs = document.querySelectorAll('.otp-input');
+      const inputs = document.querySelectorAll(".otp-input");
       const nextInput = inputs[index + 1] as HTMLInputElement;
       nextInput?.focus();
     }
 
     // Clear errors when user types
     if (errors.otp) {
-      setErrors(prev => ({ ...prev, otp: "" }));
+      setErrors((prev) => ({ ...prev, otp: "" }));
     }
   };
 
   // Handle OTP backspace
   const handleOtpKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      const inputs = document.querySelectorAll('.otp-input');
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      const inputs = document.querySelectorAll(".otp-input");
       const prevInput = inputs[index - 1] as HTMLInputElement;
       prevInput?.focus();
     }
@@ -145,7 +164,7 @@ export default function ModalAuth() {
       firstName,
       lastName,
       email,
-      phoneNumber: `${countryCode}${phoneNumber}`
+      phoneNumber: `${countryCode}${phoneNumber}`,
     });
     alert("Registration successful!");
     setStep("login");
@@ -206,24 +225,39 @@ export default function ModalAuth() {
 
   const clearError = (field: string) => {
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
   return (
     <div>
       {/* Trigger */}
-      <button onClick={() => setIsOpen(true)} className="text-sm text-blue-600 hover:underline">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="text-sm text-blue-600 hover:underline"
+      >
         Sign In / Register
       </button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="w-full max-w-md bg-white border-none shadow-lg p-0 rounded-xl overflow-hidden max-h-[90vh] overflow-y-auto">
-          <Card className='border-none shadow-none p-0'>
+          <Card className="border-none shadow-none p-0">
             <CardHeader className="pt-10 text-center">
               <div className="flex items-center justify-center mb-2">
-                <svg width="100" height="30" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg">
-                  <text x="0" y="18" fontFamily="Arial, sans-serif" fontSize="18" fontWeight="bold" fill="#003399">
+                <svg
+                  width="100"
+                  height="30"
+                  viewBox="0 0 120 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <text
+                    x="0"
+                    y="18"
+                    fontFamily="Arial, sans-serif"
+                    fontSize="18"
+                    fontWeight="bold"
+                    fill="#003399"
+                  >
                     NEXFLIGHT
                   </text>
                 </svg>
@@ -237,10 +271,14 @@ export default function ModalAuth() {
               </CardTitle>
               <CardDescription className="text-gray-600 text-sm mt-1">
                 {step === "login" && "Please enter your details to log in."}
-                {step === "register" && "Please enter your details to create an account."}
-                {step === "forgot-password" && "Enter your email to reset your password."}
-                {step === "otp-verification" && "We've sent a code to your email."}
-                {step === "reset-password" && "Set a new password for your account."}
+                {step === "register" &&
+                  "Please enter your details to create an account."}
+                {step === "forgot-password" &&
+                  "Enter your email to reset your password."}
+                {step === "otp-verification" &&
+                  "We've sent a code to your email."}
+                {step === "reset-password" &&
+                  "Set a new password for your account."}
               </CardDescription>
             </CardHeader>
 
@@ -278,7 +316,11 @@ export default function ModalAuth() {
                     className="w-full flex items-center h-10 cursor-pointer justify-center gap-2 border-gray-300 hover:bg-gray-50 transition"
                     onClick={() => alert("Apple Login")}
                   >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
                       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                     </svg>
                     Continue with Apple
@@ -295,15 +337,17 @@ export default function ModalAuth() {
                     <Input
                       id="email-login"
                       type="email"
-                      className={`h-10 ${errors.email ? 'border-red-500' : ''}`}
+                      className={`h-10 ${errors.email ? "border-red-500" : ""}`}
                       placeholder="hello@alignui.com"
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
-                        clearError('email');
+                        clearError("email");
                       }}
                     />
-                    {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="text-red-500 text-xs">{errors.email}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -311,15 +355,19 @@ export default function ModalAuth() {
                     <Input
                       id="password-login"
                       type="password"
-                      className={`h-10 ${errors.password ? 'border-red-500' : ''}`}
+                      className={`h-10 ${
+                        errors.password ? "border-red-500" : ""
+                      }`}
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value);
-                        clearError('password');
+                        clearError("password");
                       }}
                     />
-                    {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
+                    {errors.password && (
+                      <p className="text-red-500 text-xs">{errors.password}</p>
+                    )}
                   </div>
 
                   <div className="flex justify-between items-center">
@@ -353,14 +401,20 @@ export default function ModalAuth() {
                       <Input
                         id="first-name"
                         placeholder="John"
-                        className={`h-10 ${errors.firstName ? 'border-red-500' : ''}`}
+                        className={`h-10 ${
+                          errors.firstName ? "border-red-500" : ""
+                        }`}
                         value={firstName}
                         onChange={(e) => {
                           setFirstName(e.target.value);
-                          clearError('firstName');
+                          clearError("firstName");
                         }}
                       />
-                      {errors.firstName && <p className="text-red-500 text-xs">{errors.firstName}</p>}
+                      {errors.firstName && (
+                        <p className="text-red-500 text-xs">
+                          {errors.firstName}
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -368,14 +422,20 @@ export default function ModalAuth() {
                       <Input
                         id="last-name"
                         placeholder="Doe"
-                        className={`h-10 ${errors.lastName ? 'border-red-500' : ''}`}
+                        className={`h-10 ${
+                          errors.lastName ? "border-red-500" : ""
+                        }`}
                         value={lastName}
                         onChange={(e) => {
                           setLastName(e.target.value);
-                          clearError('lastName');
+                          clearError("lastName");
                         }}
                       />
-                      {errors.lastName && <p className="text-red-500 text-xs">{errors.lastName}</p>}
+                      {errors.lastName && (
+                        <p className="text-red-500 text-xs">
+                          {errors.lastName}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -384,29 +444,39 @@ export default function ModalAuth() {
                     <Input
                       id="email-register"
                       type="email"
-                      className={`h-10 ${errors.email ? 'border-red-500' : ''}`}
+                      className={`h-10 ${errors.email ? "border-red-500" : ""}`}
                       placeholder="hello@alignui.com"
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
-                        clearError('email');
+                        clearError("email");
                       }}
                     />
-                    {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="text-red-500 text-xs">{errors.email}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number *</Label>
                     <div className="flex gap-2">
-                      <Select value={countryCode} onValueChange={setCountryCode}>
+                      <Select
+                        value={countryCode}
+                        onValueChange={setCountryCode}
+                      >
                         <SelectTrigger className="w-32 h-10">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="max-h-60">
                           {countryCodes.map((country) => (
-                            <SelectItem key={country.country} value={country.code}>
+                            <SelectItem
+                              key={country.country}
+                              value={country.code}
+                            >
                               <div className="flex items-center gap-2">
-                                <span className="text-xs">{country.country}</span>
+                                <span className="text-xs">
+                                  {country.country}
+                                </span>
                                 <span>{country.code}</span>
                               </div>
                             </SelectItem>
@@ -417,18 +487,24 @@ export default function ModalAuth() {
                         id="phone"
                         type="tel"
                         placeholder="1234567890"
-                        className={`flex-1 h-10 ${errors.phoneNumber ? 'border-red-500' : ''}`}
+                        className={`flex-1 h-10 ${
+                          errors.phoneNumber ? "border-red-500" : ""
+                        }`}
                         value={phoneNumber}
                         onChange={(e) => {
                           // Only allow numbers
-                          const value = e.target.value.replace(/\D/g, '');
+                          const value = e.target.value.replace(/\D/g, "");
                           setPhoneNumber(value);
-                          clearError('phoneNumber');
+                          clearError("phoneNumber");
                         }}
                         maxLength={15}
                       />
                     </div>
-                    {errors.phoneNumber && <p className="text-red-500 text-xs">{errors.phoneNumber}</p>}
+                    {errors.phoneNumber && (
+                      <p className="text-red-500 text-xs">
+                        {errors.phoneNumber}
+                      </p>
+                    )}
                     <p className="text-xs text-gray-500">
                       Selected: {countryCode} {phoneNumber}
                     </p>
@@ -443,15 +519,17 @@ export default function ModalAuth() {
                     <Input
                       id="email-forgot"
                       type="email"
-                      className={`h-10 ${errors.email ? 'border-red-500' : ''}`}
+                      className={`h-10 ${errors.email ? "border-red-500" : ""}`}
                       placeholder="hello@alignui.com"
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
-                        clearError('email');
+                        clearError("email");
                       }}
                     />
-                    {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="text-red-500 text-xs">{errors.email}</p>
+                    )}
                   </div>
                 </>
               )}
@@ -467,13 +545,24 @@ export default function ModalAuth() {
                           inputMode="numeric"
                           maxLength={1}
                           value={digit}
-                          onChange={(e) => handleOtpChange(index, e.target.value.replace(/\D/g, ''))}
+                          onChange={(e) =>
+                            handleOtpChange(
+                              index,
+                              e.target.value.replace(/\D/g, "")
+                            )
+                          }
                           onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                          className={`w-12 h-12 text-center text-lg border-gray-300 focus:ring-blue-500 otp-input ${errors.otp ? 'border-red-500' : ''}`}
+                          className={`w-12 h-12 text-center text-lg border-gray-300 focus:ring-blue-500 otp-input ${
+                            errors.otp ? "border-red-500" : ""
+                          }`}
                         />
                       ))}
                     </div>
-                    {errors.otp && <p className="text-red-500 text-xs text-center">{errors.otp}</p>}
+                    {errors.otp && (
+                      <p className="text-red-500 text-xs text-center">
+                        {errors.otp}
+                      </p>
+                    )}
                   </div>
                 </>
               )}
@@ -485,15 +574,19 @@ export default function ModalAuth() {
                     <Input
                       id="new-password"
                       type="password"
-                      className={`h-10 ${errors.password ? 'border-red-500' : ''}`}
+                      className={`h-10 ${
+                        errors.password ? "border-red-500" : ""
+                      }`}
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value);
-                        clearError('password');
+                        clearError("password");
                       }}
                     />
-                    {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
+                    {errors.password && (
+                      <p className="text-red-500 text-xs">{errors.password}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -501,15 +594,21 @@ export default function ModalAuth() {
                     <Input
                       id="confirm-password"
                       type="password"
-                      className={`h-10 ${errors.confirmPassword ? 'border-red-500' : ''}`}
+                      className={`h-10 ${
+                        errors.confirmPassword ? "border-red-500" : ""
+                      }`}
                       placeholder="••••••••"
                       value={confirmPassword}
                       onChange={(e) => {
                         setConfirmPassword(e.target.value);
-                        clearError('confirmPassword');
+                        clearError("confirmPassword");
                       }}
                     />
-                    {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
+                    {errors.confirmPassword && (
+                      <p className="text-red-500 text-xs">
+                        {errors.confirmPassword}
+                      </p>
+                    )}
                   </div>
                 </>
               )}
@@ -525,7 +624,7 @@ export default function ModalAuth() {
                     Login
                   </Button>
                   <p className="text-xs text-center text-gray-500">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <button
                       onClick={() => {
                         setStep("register");
@@ -571,7 +670,7 @@ export default function ModalAuth() {
                     Reset Password
                   </Button>
                   <p className="text-sm text-center text-gray-500">
-                    Don't have access anymore?{" "}
+                    Don&apos;t have access anymore?{" "}
                   </p>
                   <button
                     onClick={() => setStep("login")}

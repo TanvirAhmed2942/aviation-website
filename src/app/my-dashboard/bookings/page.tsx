@@ -9,14 +9,33 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
 const FlightBookings = () => {
   const [activeTab, setActiveTab] = useState("All");
-  const [selectedBooking, setSelectedBooking] = useState<any>(null);
+  const [selectedBooking, setSelectedBooking] = useState<{
+    id: number;
+    route: string;
+    date: string;
+    status: string;
+    statusColor: string;
+    flightNumber: string;
+    departure: string;
+    arrival: string;
+    duration: string;
+    terminal: string;
+    gate: string;
+    seat: string;
+    baggage: string;
+    airline: string;
+    aircraft: string;
+    passengers: number;
+    amenities: string[];
+    price: string;
+    bookingNumber: string;
+  } | null>(null);
 
   const bookings = [
     {
@@ -117,7 +136,27 @@ const FlightBookings = () => {
     return bookings.filter((booking) => booking.status === tab).length;
   };
 
-  const handleViewDetails = (booking: any) => {
+  const handleViewDetails = (booking: {
+    id: number;
+    route: string;
+    date: string;
+    status: string;
+    statusColor: string;
+    flightNumber: string;
+    departure: string;
+    arrival: string;
+    duration: string;
+    terminal: string;
+    gate: string;
+    seat: string;
+    baggage: string;
+    airline: string;
+    aircraft: string;
+    passengers: number;
+    amenities: string[];
+    price: string;
+    bookingNumber: string;
+  }) => {
     setSelectedBooking(booking);
   };
 

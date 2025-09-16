@@ -1,17 +1,23 @@
 "use client";
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
-import { ArrowRight, Clock, Heart, MapPin, Users } from 'lucide-react';
-import { useState } from 'react';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { ArrowRight, Clock, Heart, MapPin, Users } from "lucide-react";
+import { useState } from "react";
 
-type FlightRating = 'GOOD' | 'FAIR' | 'RECOMMENDED';
+type FlightRating = "GOOD" | "FAIR" | "RECOMMENDED";
 
 type Flight = {
   id: number;
@@ -31,45 +37,48 @@ type Flight = {
 const allFlights: Flight[] = [
   {
     id: 1,
-    aircraft: 'KSTP',
-    origin: 'St Paul, Minnesota, USA',
-    destination: 'San Antonio, Texas, USA',
-    departure: '05/06/2025',
+    aircraft: "KSTP",
+    origin: "St Paul, Minnesota, USA",
+    destination: "San Antonio, Texas, USA",
+    departure: "05/06/2025",
     time: "06:30 PM",
-    duration: '3h 1m',
-    model: 'Beechcraft Beechjet 400A',
+    duration: "3h 1m",
+    model: "Beechcraft Beechjet 400A",
     passengers: 7,
     price: 22000,
-    rating: 'GOOD',
-    imageUrl: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=300&h=200&fit=crop',
+    rating: "GOOD",
+    imageUrl:
+      "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=300&h=200&fit=crop",
   },
   {
     id: 2,
-    aircraft: 'KLUK',
-    origin: 'St Paul, Minnesota, USA',
-    destination: 'San Antonio, Texas, USA',
-    departure: '05/06/2025',
+    aircraft: "KLUK",
+    origin: "St Paul, Minnesota, USA",
+    destination: "San Antonio, Texas, USA",
+    departure: "05/06/2025",
     time: "06:30 PM",
-    duration: '0h 45m',
-    model: 'Bombardier Challenger 601',
+    duration: "0h 45m",
+    model: "Bombardier Challenger 601",
     passengers: 4,
     price: 29623,
-    rating: 'RECOMMENDED',
-    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&h=200&fit=crop',
+    rating: "RECOMMENDED",
+    imageUrl:
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&h=200&fit=crop",
   },
   {
     id: 3,
-    aircraft: 'KFRG',
-    origin: 'St Paul, Minnesota, USA',
-    destination: 'San Antonio, Texas, USA',
-    departure: '05/06/2025',
+    aircraft: "KFRG",
+    origin: "St Paul, Minnesota, USA",
+    destination: "San Antonio, Texas, USA",
+    departure: "05/06/2025",
     time: "06:30 PM",
-    duration: '2h 54m',
-    model: 'Cessna Citation V',
+    duration: "2h 54m",
+    model: "Cessna Citation V",
     passengers: 5,
     price: 29623,
-    rating: 'FAIR',
-    imageUrl: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=300&h=200&fit=crop',
+    rating: "FAIR",
+    imageUrl:
+      "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=300&h=200&fit=crop",
   },
 ];
 
@@ -78,12 +87,14 @@ const ITEMS_PER_PAGE = 7;
 export default function FlightBookingSystem() {
   const [currentPage, setCurrentPage] = useState(1);
   const [likedFlights, setLikedFlights] = useState<Set<number>>(new Set());
-  const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
+  // const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
 
   const totalPages = Math.ceil(allFlights.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedFlights = allFlights.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
+  const paginatedFlights = allFlights.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   const toggleLike = (flightId: number) => {
     const newLikedFlights = new Set(likedFlights);
@@ -97,7 +108,7 @@ export default function FlightBookingSystem() {
 
   const FlightDetailsDrawer = ({ flight }: { flight: Flight }) => (
     <SheetContent className="w-full overflow-y-auto">
-      <SheetHeader className='border-b'>
+      <SheetHeader className="border-b">
         <SheetTitle className="flex items-center gap-2">
           Flight Details
         </SheetTitle>
@@ -111,7 +122,7 @@ export default function FlightBookingSystem() {
             className="w-full h-48 object-cover rounded-lg"
           />
           <div className="absolute top-2 right-2">
-            {flight.rating === 'RECOMMENDED' && (
+            {flight.rating === "RECOMMENDED" && (
               <Badge className="bg-blue-600">RECOMMENDED</Badge>
             )}
           </div>
@@ -198,7 +209,7 @@ export default function FlightBookingSystem() {
 
   const BookingDrawer = ({ flight }: { flight: Flight }) => (
     <SheetContent className="w-96 overflow-y-auto">
-      <SheetHeader className='border-b'>
+      <SheetHeader className="border-b">
         <SheetTitle>Book Your Flight</SheetTitle>
       </SheetHeader>
 
@@ -207,13 +218,19 @@ export default function FlightBookingSystem() {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="font-semibold">{flight.aircraft} → KSAT</h3>
-              <p className="text-sm opacity-90">{flight.origin} to {flight.destination}</p>
+              <p className="text-sm opacity-90">
+                {flight.origin} to {flight.destination}
+              </p>
             </div>
-            <p className="text-xl font-bold">${flight.price.toLocaleString()}</p>
+            <p className="text-xl font-bold">
+              ${flight.price.toLocaleString()}
+            </p>
           </div>
 
           <div className="mt-3 space-y-1 text-sm opacity-90">
-            <p>Departure: {flight.departure} {flight.time}</p>
+            <p>
+              Departure: {flight.departure} {flight.time}
+            </p>
             <p>Duration: {flight.duration}</p>
             <p>Aircraft: {flight.model}</p>
           </div>
@@ -222,13 +239,23 @@ export default function FlightBookingSystem() {
         <div className="space-y-4">
           <div>
             <Label>Email Address</Label>
-            <Input type="email" placeholder="your-email@email.com" className="mt-1" />
+            <Input
+              type="email"
+              placeholder="your-email@email.com"
+              className="mt-1"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>Passengers</Label>
-              <Input type="number" defaultValue="1" min="1" max={flight.passengers} className="mt-1" />
+              <Input
+                type="number"
+                defaultValue="1"
+                min="1"
+                max={flight.passengers}
+                className="mt-1"
+              />
             </div>
             <div>
               <Label>Luggage Items</Label>
@@ -239,7 +266,9 @@ export default function FlightBookingSystem() {
           <Separator />
 
           <div className="space-y-4">
-            <h4 className="font-semibold">Would you like to include amenities?</h4>
+            <h4 className="font-semibold">
+              Would you like to include amenities?
+            </h4>
 
             <div className="flex items-center justify-between">
               <Label>Include Amenities</Label>
@@ -267,27 +296,37 @@ export default function FlightBookingSystem() {
           <Separator />
 
           <div className="space-y-4">
-            <h4 className="font-semibold">Dietary Preferences & Restrictions</h4>
+            <h4 className="font-semibold">
+              Dietary Preferences & Restrictions
+            </h4>
 
             <div className="space-y-3">
               <div>
                 <Label className="text-sm">Celery</Label>
-                <p className="text-xs text-gray-500">Products containing celery</p>
+                <p className="text-xs text-gray-500">
+                  Products containing celery
+                </p>
               </div>
 
               <div>
                 <Label className="text-sm">Eggs</Label>
-                <p className="text-xs text-gray-500">Products containing eggs</p>
+                <p className="text-xs text-gray-500">
+                  Products containing eggs
+                </p>
               </div>
 
               <div>
                 <Label className="text-sm">Fish</Label>
-                <p className="text-xs text-gray-500">Products containing fish</p>
+                <p className="text-xs text-gray-500">
+                  Products containing fish
+                </p>
               </div>
 
               <div>
                 <Label className="text-sm">Gluten (Cereals)</Label>
-                <p className="text-xs text-gray-500">Cereals containing gluten such as wheat, barley</p>
+                <p className="text-xs text-gray-500">
+                  Cereals containing gluten such as wheat, barley
+                </p>
               </div>
             </div>
           </div>
@@ -327,20 +366,41 @@ export default function FlightBookingSystem() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-50">
-              <th className="text-left py-3 px-4 font-medium border-b">Aircraft</th>
-              <th className="text-left py-3 px-4 font-medium border-b">Origin</th>
-              <th className="text-left py-3 px-4 font-medium border-b">Destination</th>
-              <th className="text-left py-3 px-4 font-medium border-b">Departure</th>
-              <th className="text-left py-3 px-4 font-medium border-b">Duration</th>
-              <th className="text-left py-3 px-4 font-medium border-b">Aircraft Model</th>
-              <th className="text-left py-3 px-4 font-medium border-b">Passengers</th>
-              <th className="text-left py-3 px-4 font-medium border-b">Price</th>
-              <th className="text-center py-3 px-4 font-medium border-b">Actions</th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Aircraft
+              </th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Origin
+              </th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Destination
+              </th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Departure
+              </th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Duration
+              </th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Aircraft Model
+              </th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Passengers
+              </th>
+              <th className="text-left py-3 px-4 font-medium border-b">
+                Price
+              </th>
+              <th className="text-center py-3 px-4 font-medium border-b">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {paginatedFlights.map((flight) => (
-              <tr key={flight.id} className="hover:bg-gray-50 transition-colors border-b last:border-b-0">
+              <tr
+                key={flight.id}
+                className="hover:bg-gray-50 transition-colors border-b last:border-b-0"
+              >
                 <td className="py-3 px-4">
                   <img
                     src={flight.imageUrl}
@@ -354,7 +414,9 @@ export default function FlightBookingSystem() {
                 </td>
                 <td className="py-3 px-4">
                   <div className="font-medium">KSAT</div>
-                  <div className="text-sm text-gray-600">{flight.destination}</div>
+                  <div className="text-sm text-gray-600">
+                    {flight.destination}
+                  </div>
                 </td>
                 <td className="py-3 px-4">
                   <div>{flight.departure}</div>
@@ -364,16 +426,20 @@ export default function FlightBookingSystem() {
                 <td className="py-3 px-4">{flight.model}</td>
                 <td className="py-3 px-4">{flight.passengers}</td>
                 <td className="py-3 px-4">
-                  <div className="font-semibold">${flight.price.toLocaleString()}</div>
-                  {flight.rating === 'RECOMMENDED' && (
-                    <Badge variant="secondary" className="text-xs mt-1">RECOMMENDED</Badge>
+                  <div className="font-semibold">
+                    ${flight.price.toLocaleString()}
+                  </div>
+                  {flight.rating === "RECOMMENDED" && (
+                    <Badge variant="secondary" className="text-xs mt-1">
+                      RECOMMENDED
+                    </Badge>
                   )}
-                  {flight.rating === 'GOOD' && (
+                  {flight.rating === "GOOD" && (
                     <Badge className="text-xs mt-1 bg-green-100 text-green-800">
                       ↑ GOOD
                     </Badge>
                   )}
-                  {flight.rating === 'FAIR' && (
+                  {flight.rating === "FAIR" && (
                     <Badge className="text-xs mt-1 bg-blue-100 text-blue-800">
                       ↑ FAIR
                     </Badge>
@@ -388,13 +454,21 @@ export default function FlightBookingSystem() {
                       onClick={() => toggleLike(flight.id)}
                     >
                       <Heart
-                        className={`h-4 w-4 ${likedFlights.has(flight.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
+                        className={`h-4 w-4 ${
+                          likedFlights.has(flight.id)
+                            ? "fill-red-500 text-red-500"
+                            : "text-gray-400"
+                        }`}
                       />
                     </Button>
 
                     <Sheet>
                       <SheetTrigger asChild>
-                        <Button variant="outline" size="sm" className="text-xs p-5 cursor-pointer ">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="text-xs p-5 cursor-pointer "
+                        >
                           View Details
                         </Button>
                       </SheetTrigger>
@@ -403,7 +477,10 @@ export default function FlightBookingSystem() {
 
                     <Sheet>
                       <SheetTrigger asChild>
-                        <Button size="sm" className="bg-[#1B365D] hover:bg-[#1B365D]/90 p-5 text-white">
+                        <Button
+                          size="sm"
+                          className="bg-[#1B365D] hover:bg-[#1B365D]/90 p-5 text-white"
+                        >
                           Book Now <ArrowRight className="ml-1 h-3 w-3" />
                         </Button>
                       </SheetTrigger>
@@ -420,7 +497,9 @@ export default function FlightBookingSystem() {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6">
-          <p className="text-sm text-gray-600">Page {currentPage} of {totalPages}</p>
+          <p className="text-sm text-gray-600">
+            Page {currentPage} of {totalPages}
+          </p>
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
@@ -445,7 +524,9 @@ export default function FlightBookingSystem() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+              onClick={() =>
+                setCurrentPage(Math.min(totalPages, currentPage + 1))
+              }
               disabled={currentPage === totalPages}
             >
               Next
@@ -453,8 +534,6 @@ export default function FlightBookingSystem() {
           </div>
         </div>
       )}
-
-
     </div>
   );
 }

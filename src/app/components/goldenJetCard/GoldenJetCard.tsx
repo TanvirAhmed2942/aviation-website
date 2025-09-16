@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Check, Plane, MessageCircle, DollarSign } from "lucide-react";
+import { Check, Plane, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";

@@ -1,19 +1,19 @@
 "use client";
 
-import { Card, CardContent } from '@/components/ui/card';
-import { Plane, Star } from 'lucide-react';
-import React from 'react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Plane, Star } from "lucide-react";
+import React from "react";
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 // import required modules
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from "swiper/modules";
 
 const testimonials = [
   {
@@ -21,36 +21,36 @@ const testimonials = [
     name: "Leslie Alexander",
     route: "LOS ANGELES TO LAS VEGAS",
     rating: 5,
-    text: "From the moment I booked to touchdown, everything was flawless. NEXFLIGHT redefines private travel."
+    text: "From the moment I booked to touchdown, everything was flawless. NEXFLIGHT redefines private travel.",
   },
   {
     id: 2,
     name: "Jacob Jones",
     route: "NEW YORK TO MIAMI",
     rating: 5,
-    text: "I've always wanted to experience private jet travel, and NEXFLIGHT made it possible without breaking the bank."
+    text: "I've always wanted to experience private jet travel, and NEXFLIGHT made it possible without breaking the bank.",
   },
   {
     id: 3,
     name: "Jenny Wilson",
     route: "DALLAS TO ASPEN",
     rating: 5,
-    text: "Luxury, comfort, and total peace of mind. NEXFLIGHT makes every journey feel like a VIP experience."
+    text: "Luxury, comfort, and total peace of mind. NEXFLIGHT makes every journey feel like a VIP experience.",
   },
   {
     id: 4,
     name: "Sarah Johnson",
     route: "CHICAGO TO NEW YORK",
     rating: 5,
-    text: "Outstanding service from start to finish. The booking process was seamless and the flight exceeded all expectations."
+    text: "Outstanding service from start to finish. The booking process was seamless and the flight exceeded all expectations.",
   },
   {
     id: 5,
     name: "Michael Brown",
     route: "SEATTLE TO LOS ANGELES",
     rating: 5,
-    text: "Professional crew, luxurious aircraft, and punctual service. NEXFLIGHT has set a new standard for private aviation."
-  }
+    text: "Professional crew, luxurious aircraft, and punctual service. NEXFLIGHT has set a new standard for private aviation.",
+  },
 ];
 
 type StarRatingProps = {
@@ -63,8 +63,9 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}
-          className={`w-5 h-5 ${i < rating ? "fill-amber-400 text-amber-400" : "text-gray-300"
-            }`}
+          className={`w-5 h-5 ${
+            i < rating ? "fill-amber-400 text-amber-400" : "text-gray-300"
+          }`}
         />
       ))}
     </div>
@@ -72,8 +73,14 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
 };
 
 type testimonialData = {
-  testimonial: any
-}
+  testimonial: {
+    id: number;
+    name: string;
+    route: string;
+    rating: number;
+    text: string;
+  };
+};
 
 const TestimonialCard: React.FC<testimonialData> = ({ testimonial }) => {
   return (
@@ -82,7 +89,7 @@ const TestimonialCard: React.FC<testimonialData> = ({ testimonial }) => {
         <StarRating rating={testimonial.rating} />
 
         <blockquote className="text-gray-800 text-lg leading-relaxed mb-8 flex-grow">
-          "{testimonial.text}"
+          &ldquo;{testimonial.text}&rdquo;
         </blockquote>
 
         <div className="mt-auto">
