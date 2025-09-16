@@ -1,8 +1,8 @@
 "use client";
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Sheet,
   SheetContent,
@@ -10,86 +10,111 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { Info } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/sheet";
+import { Info } from "lucide-react";
+import { useState } from "react";
 
 const FlightBookings = () => {
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState("All");
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
 
   const bookings = [
     {
       id: 1,
-      route: 'JFK → LAX',
-      date: 'Mar 15, 2025',
-      status: 'Upcoming',
-      statusColor: 'bg-blue-100 text-blue-800 hover:bg-blue-200',
-      flightNumber: 'AA123',
-      departure: '08:00 AM',
-      arrival: '11:30 AM',
-      terminal: 'Terminal 8',
-      gate: 'B12',
-      seat: '14A',
-      baggage: '1 checked bag',
-      airline: 'American Airlines',
+      route: "JFK → LAX",
+      date: "Mar 15, 2025",
+      status: "Upcoming",
+      statusColor: "bg-blue-100 text-blue-800 hover:bg-blue-200",
+      flightNumber: "AA123",
+      departure: "10:30 AM",
+      arrival: "1:45 PM",
+      duration: "3h 15m",
+      terminal: "Terminal 8",
+      gate: "B12",
+      seat: "14A",
+      baggage: "1 checked bag",
+      airline: "American Airlines",
+      aircraft: "Gulfstream G650",
+      passengers: 4,
+      amenities: ["Wi-Fi", "Catering", "Flight Attendant", "Pet Friendly"],
+      price: "$12,500",
+      bookingNumber: "23423",
     },
     {
       id: 2,
-      route: 'SFO → MIA',
-      date: 'Mar 10, 2025',
-      status: 'Upcoming',
-      statusColor: 'bg-blue-100 text-blue-800 hover:bg-blue-200',
-      flightNumber: 'UA456',
-      departure: '10:15 AM',
-      arrival: '05:45 PM',
-      terminal: 'Terminal 3',
-      gate: 'C7',
-      seat: '22C',
-      baggage: '2 checked bags',
-      airline: 'United Airlines',
+      route: "SFO → MIA",
+      date: "Mar 10, 2025",
+      status: "Upcoming",
+      statusColor: "bg-blue-100 text-blue-800 hover:bg-blue-200",
+      flightNumber: "UA456",
+      departure: "10:15 AM",
+      arrival: "05:45 PM",
+      duration: "5h 30m",
+      terminal: "Terminal 3",
+      gate: "C7",
+      seat: "22C",
+      baggage: "2 checked bags",
+      airline: "United Airlines",
+      aircraft: "Bombardier Global 7500",
+      passengers: 2,
+      amenities: ["Wi-Fi", "Catering", "Flight Attendant"],
+      price: "$18,750",
+      bookingNumber: "23424",
     },
     {
       id: 3,
-      route: 'ORD → DFW',
-      date: 'Feb 28, 2025',
-      status: 'Completed',
-      statusColor: 'bg-green-100 text-green-800 hover:bg-green-200',
-      flightNumber: 'DL789',
-      departure: '06:30 AM',
-      arrival: '08:15 AM',
-      terminal: 'Terminal 5',
-      gate: 'D3',
-      seat: '8F',
-      baggage: '1 checked bag',
-      airline: 'Delta Air Lines',
+      route: "ORD → DFW",
+      date: "Feb 28, 2025",
+      status: "Completed",
+      statusColor: "bg-green-100 text-green-800 hover:bg-green-200",
+      flightNumber: "DL789",
+      departure: "06:30 AM",
+      arrival: "08:15 AM",
+      duration: "1h 45m",
+      terminal: "Terminal 5",
+      gate: "D3",
+      seat: "8F",
+      baggage: "1 checked bag",
+      airline: "Delta Air Lines",
+      aircraft: "Cessna Citation X+",
+      passengers: 6,
+      amenities: ["Wi-Fi", "Catering", "Flight Attendant", "Pet Friendly"],
+      price: "$8,900",
+      bookingNumber: "23425",
     },
     {
       id: 4,
-      route: 'LGA → BOS',
-      date: 'Feb 20, 2025',
-      status: 'Cancelled',
-      statusColor: 'bg-red-100 text-red-800 hover:bg-red-200',
-      flightNumber: 'B6101',
-      departure: '07:00 AM',
-      arrival: '08:45 AM',
-      terminal: 'Terminal C',
-      gate: 'C15',
-      seat: '11B',
-      baggage: '0 checked bags',
-      airline: 'JetBlue',
+      route: "LGA → BOS",
+      date: "Feb 20, 2025",
+      status: "Cancelled",
+      statusColor: "bg-red-100 text-red-800 hover:bg-red-200",
+      flightNumber: "B6101",
+      departure: "07:00 AM",
+      arrival: "08:45 AM",
+      duration: "1h 45m",
+      terminal: "Terminal C",
+      gate: "C15",
+      seat: "11B",
+      baggage: "0 checked bags",
+      airline: "JetBlue",
+      aircraft: "Embraer Legacy 650",
+      passengers: 3,
+      amenities: ["Wi-Fi", "Catering"],
+      price: "$6,200",
+      bookingNumber: "23426",
     },
   ];
 
-  const tabs = ['All', 'Upcoming', 'Completed', 'Cancelled'];
+  const tabs = ["All", "Upcoming", "Completed", "Cancelled"];
 
-  const filteredBookings = activeTab === 'All'
-    ? bookings
-    : bookings.filter(booking => booking.status === activeTab);
+  const filteredBookings =
+    activeTab === "All"
+      ? bookings
+      : bookings.filter((booking) => booking.status === activeTab);
 
   const getTabCount = (tab: string) => {
-    if (tab === 'All') return bookings.length;
-    return bookings.filter(booking => booking.status === tab).length;
+    if (tab === "All") return bookings.length;
+    return bookings.filter((booking) => booking.status === tab).length;
   };
 
   const handleViewDetails = (booking: any) => {
@@ -100,7 +125,9 @@ const FlightBookings = () => {
     <div className="">
       {/* Header */}
       <div className="mb-5">
-        <h1 className="text-2xl font-semibold text-gray-900 mb-2">My Bookings</h1>
+        <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+          My Bookings
+        </h1>
         <p className="text-gray-600">Manage your flight reservations</p>
       </div>
 
@@ -112,9 +139,10 @@ const FlightBookings = () => {
             onClick={() => setActiveTab(tab)}
             className={`
               px-4 py-2 rounded-md cursor-pointer text-sm font-medium transition-all duration-200 flex items-center gap-2
-              ${activeTab === tab
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+              ${
+                activeTab === tab
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
               }
             `}
           >
@@ -132,7 +160,10 @@ const FlightBookings = () => {
       {/* Booking Cards */}
       <div className="space-y-4">
         {filteredBookings.map((booking) => (
-          <Card key={booking.id} className="border border-gray-200 hover:shadow-md transition-shadow duration-200">
+          <Card
+            key={booking.id}
+            className="border border-gray-200 hover:shadow-md transition-shadow duration-200"
+          >
             <CardContent className="px-5 py-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
@@ -150,95 +181,13 @@ const FlightBookings = () => {
                     {booking.status}
                   </Badge>
 
-                  {/* Sheet Trigger Button */}
-                  <Sheet>
-                    <SheetTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="text-gray-700 cursor-pointer hover:bg-gray-50 border-gray-300"
-                        onClick={() => handleViewDetails(booking)}
-                      >
-                        View Details
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent side="right" className="w-full max-w-md overflow-y-auto">
-                      <SheetHeader>
-                        <SheetTitle>Flight Details</SheetTitle>
-                        <SheetDescription>
-                          Information about your upcoming trip.
-                        </SheetDescription>
-                      </SheetHeader>
-
-                      <div className="py-5 flex flex-col justify-between border border-red-500 w-full h-screen  space-y-4 px-4">
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <p className="text-sm text-gray-500">Flight Number</p>
-                            <p className="font-medium">{booking.flightNumber}</p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-gray-500">Airline</p>
-                            <p className="font-medium">{booking.airline}</p>
-                          </div>
-                        </div>
-
-                        <div className="border-t pt-4">
-                          <h4 className="font-medium text-gray-900 mb-2">Schedule</h4>
-                          <div className="grid grid-cols-2 gap-4 text-sm">
-                            <div>
-                              <p className="text-gray-500">Departure</p>
-                              <p className="font-medium">{booking.departure}</p>
-                            </div>
-                            <div>
-                              <p className="text-gray-500">Arrival</p>
-                              <p className="font-medium">{booking.arrival}</p>
-                            </div>
-                            <div>
-                              <p className="text-gray-500">Terminal</p>
-                              <p className="font-medium">{booking.terminal}</p>
-                            </div>
-                            <div>
-                              <p className="text-gray-500">Gate</p>
-                              <p className="font-medium">{booking.gate}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="border-t pt-4">
-                          <h4 className="font-medium text-gray-900 mb-2">Seat & Baggage</h4>
-                          <div className="grid grid-cols-2 gap-4 text-sm">
-                            <div>
-                              <p className="text-gray-500">Seat</p>
-                              <p className="font-medium">{booking.seat}</p>
-                            </div>
-                            <div>
-                              <p className="text-gray-500">Baggage</p>
-                              <p className="font-medium">{booking.baggage}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="border-t pt-4">
-                          <h4 className="font-medium text-gray-900 mb-2">Status</h4>
-                          <Badge
-                            variant="secondary"
-                            className={`${booking.statusColor} border-0 font-medium px-3 py-1`}
-                          >
-                            {booking.status}
-                          </Badge>
-                        </div>
-
-                        <div>
-                          <Button
-                            variant="outline"
-                            className="w-full mt-6"
-                            onClick={() => setSelectedBooking(null)}
-                          >
-                            Close
-                          </Button>
-                        </div>
-                      </div>
-                    </SheetContent>
-                  </Sheet>
+                  <Button
+                    variant="outline"
+                    className="text-gray-700 cursor-pointer hover:bg-gray-50 border-gray-300"
+                    onClick={() => handleViewDetails(booking)}
+                  >
+                    View Details
+                  </Button>
                 </div>
               </div>
             </CardContent>
@@ -246,10 +195,123 @@ const FlightBookings = () => {
         ))}
       </div>
 
+      {/* Booking Details Sheet */}
+      <Sheet
+        open={!!selectedBooking}
+        onOpenChange={() => setSelectedBooking(null)}
+      >
+        <SheetContent side="right" className="w-full max-w-md overflow-y-auto">
+          {selectedBooking && (
+            <>
+              <SheetHeader>
+                <SheetTitle className="text-xl font-bold text-gray-900">
+                  Booking Details
+                </SheetTitle>
+                <SheetDescription className="text-sm text-gray-600">
+                  Booking #{selectedBooking.bookingNumber}
+                </SheetDescription>
+              </SheetHeader>
+
+              <div className="px-5 py-6 space-y-6">
+                {/* Route and Date */}
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-1">
+                    {selectedBooking.route}
+                  </h2>
+                  <p className="text-gray-600">{selectedBooking.date}</p>
+                </div>
+
+                {/* Schedule */}
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-3">
+                    Schedule:
+                  </h3>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <p className="text-gray-500 mb-1">Departure</p>
+                      <p className="font-medium">{selectedBooking.departure}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 mb-1">Arrival</p>
+                      <p className="font-medium">{selectedBooking.arrival}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 mb-1">Duration</p>
+                      <p className="font-medium">{selectedBooking.duration}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Aircraft */}
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Aircraft:
+                  </h3>
+                  <p className="text-gray-700">{selectedBooking.aircraft}</p>
+                </div>
+
+                {/* Passengers */}
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Passengers:
+                  </h3>
+                  <p className="text-gray-700">
+                    {selectedBooking.passengers} passengers
+                  </p>
+                </div>
+
+                {/* Amenities */}
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-3">
+                    Amenities:
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedBooking.amenities.map(
+                      (amenity: string, index: number) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1 rounded-full text-sm"
+                        >
+                          {amenity}
+                        </Badge>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                {/* Price */}
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Price:</h3>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {selectedBooking.price}
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4">
+                  <Button className="flex-1 primary  text-white">
+                    Modify Booking
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
+                  >
+                    Download Details
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </SheetContent>
+      </Sheet>
+
       {/* Empty State */}
       {filteredBookings.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500">No {activeTab.toLowerCase()} bookings found.</p>
+          <p className="text-gray-500">
+            No {activeTab.toLowerCase()} bookings found.
+          </p>
         </div>
       )}
     </div>

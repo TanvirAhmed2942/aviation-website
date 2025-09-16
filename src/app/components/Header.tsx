@@ -1,3 +1,4 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -11,6 +12,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // Data declarations
 const navigationLinks = [
@@ -49,21 +51,25 @@ const actionIcons = [
     id: 1,
     icon: <Heart className="w-5 h-5" />,
     className: "text-gray-600 hover:text-gray-900",
+    href: "/my-dashboard/searches",
   },
   {
     id: 2,
     icon: <Bell className="w-7 h-7" />,
     className: "text-gray-600 hover:text-gray-900 relative",
     hasBadge: true,
+    href: "/my-dashboard/notifications",
   },
   {
     id: 3,
     icon: <User className="w-5 h-5" />,
     className: "text-gray-600 hover:text-gray-900",
+    href: "/my-dashboard/overview",
   },
 ];
 
 export default function Header() {
+  const router = useRouter();
   return (
     <div className="w-full bg-white border-b border-gray-200">
       <div className="container mx-auto">
@@ -118,6 +124,7 @@ export default function Header() {
                   variant="ghost"
                   size="icon"
                   className={action.className}
+                  onClick={() => action.href && router.push(action.href)}
                 >
                   {action.icon}
                   {action.hasBadge && (
