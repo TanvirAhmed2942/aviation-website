@@ -21,12 +21,18 @@ const page: NextPage = () => {
     <div>
       <Hero />
       <PremiumAviationServices />
-      <Services />
+      <div id='charter'>
+        <Services />
+      </div>
       <AircraftComparison />
       <PopularDestinations />
       <PopularRoutes />
-      <ExclusiveEmptyLegDeals />
-      <CoreServiceLines />
+      <div id='EmptyLegs'>
+        <ExclusiveEmptyLegDeals />
+      </div>
+      <div id='helicopter'>
+        <CoreServiceLines />
+      </div>
       <NetworkMap />
       <WhyChooseNexFlight />
       <OurAircraft />

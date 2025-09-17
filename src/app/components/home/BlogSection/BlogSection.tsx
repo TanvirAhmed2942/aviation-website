@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
+import Image from 'next/image';
 import React from "react";
 
 const blogPosts = [
@@ -20,7 +21,7 @@ const blogPosts = [
   },
   {
     id: 2,
-    title: "Top 5 Private Jet Destinations for",
+    title: "Top 5 Private Jet Destinations for 2025",
     excerpt: "Explore the most luxurious and exclusive destinations...",
     author: "Sarah Williams",
     date: "March 10, 2025",
@@ -32,7 +33,7 @@ const blogPosts = [
   },
   {
     id: 3,
-    title: "Sustainable Aviation: The Green",
+    title: "Sustainable Aviation: The Green Revolution",
     excerpt: "How private aviation is embracing sustainability...",
     author: "Michael Brown",
     date: "March 5, 2025",
@@ -60,42 +61,48 @@ type postType = {
 
 const BlogCard: React.FC<postType> = ({ post }) => {
   return (
-    <Card className="overflow-hidden group p-0 hover:shadow-lg transition-all duration-300 h-full cursor-pointer">
-      <div className="relative">
-        <div
-          className="h-64 bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${post.image})` }}
-        >
-          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300"></div>
+    <Card className="overflow-hidden group p-0 hover:shadow-lg transition-all duration-300 h-full cursor-pointer flex flex-col">
+      <div className="relative flex-shrink-0">
+        <div className="h-48 sm:h-56 md:h-48 lg:h-56 xl:h-64 w-full overflow-hidden">
+          <Image
+            src={post.image}
+            alt={post.title}
+            width={1000}
+            height={1000}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
         </div>
+        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300"></div>
       </div>
 
-      <CardContent className="p-6 flex flex-col h-full">
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-          <span>{post.date}</span>
+      <CardContent className="p-4 sm:p-5 md:p-4 lg:p-5 xl:p-6 flex flex-col flex-grow">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-2 sm:mb-3 flex-wrap">
+          <span className="whitespace-nowrap">{post.date}</span>
           <span>•</span>
           <Badge
             variant="secondary"
-            className={`${post.categoryColor} text-white border-0 text-xs`}
+            className={`${post.categoryColor} text-white border-0 text-xs px-2 py-1`}
           >
             {post.category}
           </Badge>
         </div>
 
-        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
           {post.title}
         </h3>
 
-        <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">
+        <p className="text-gray-600 text-sm leading-relaxed mb-4 sm:mb-6 flex-grow line-clamp-3">
           {post.excerpt}
         </p>
 
-        <div className="flex items-center justify-between mt-auto">
-          <span className="text-sm text-gray-500">By {post.author}</span>
+        <div className="flex items-center justify-between mt-auto flex-wrap gap-2">
+          <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap">
+            By {post.author}
+          </span>
           <Button
             variant="ghost"
             size="sm"
-            className="border px-4  py-2 h-auto font-medium"
+            className="text-xs sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 h-auto font-medium"
           >
             Read More
           </Button>
@@ -107,14 +114,17 @@ const BlogCard: React.FC<postType> = ({ post }) => {
 
 const BlogSection = () => {
   return (
-    <section className="py-16 px-6 bg-white">
+    <section className="py-10 sm:py-12 md:py-14 lg:py-16 px-4 sm:px-6 bg-white">
       <div className="container mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-end mb-12">
-          <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-2">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-10 md:mb-12 gap-4 sm:gap-0">
+          <div className="max-w-xl">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
               Latest from Our Blog
             </h2>
+            <p className="text-gray-600 text-sm sm:text-base md:hidden">
+              Insights and trends in private aviation
+            </p>
           </div>
 
           <Button
@@ -127,14 +137,14 @@ const BlogSection = () => {
         </div>
 
         {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-7 lg:gap-8 mb-6 sm:mb-8">
           {blogPosts.map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
         </div>
 
         {/* Mobile View All Button */}
-        <div className="md:hidden flex justify-center">
+        <div className="md:hidden flex justify-center mt-2">
           <Button
             variant="ghost"
             className="flex items-center gap-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 font-medium"

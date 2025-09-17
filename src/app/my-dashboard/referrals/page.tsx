@@ -1,9 +1,8 @@
 "use client";
 
-import React from 'react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 const ReferralProgram = () => {
   const referralStats = [
@@ -36,7 +35,7 @@ const ReferralProgram = () => {
   };
 
   return (
-    <div className="">
+    <div className="w-full container mx-auto px-4 sm:px-6 lg:px-6">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-gray-900 mb-2">Referral Program</h1>
@@ -45,21 +44,21 @@ const ReferralProgram = () => {
 
       {/* Referral Link Section */}
       <Card className="border border-gray-200 mb-8">
-        <CardContent className="">
+        <CardContent className="p-4 sm:p-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Your Referral Link</h2>
-          
-          <div className="flex items-center gap-4 mb-4">
-            <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
-              <code className="text-gray-700">https://NEXFLIGHT.com/ref/alex123</code>
+
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-4">
+            <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 overflow-x-auto">
+              <code className="text-gray-700 whitespace-nowrap">https://NEXFLIGHT.com/ref/alex123</code>
             </div>
-            <Button 
+            <Button
               onClick={handleCopyLink}
-              className="bg-gray-900 hover:bg-gray-800 text-white px-6"
+              className="bg-gray-900 hover:bg-gray-800 text-white w-full sm:w-auto px-6 py-2"
             >
               Copy Link
             </Button>
           </div>
-          
+
           <p className="text-gray-600 text-sm">
             Share this link with friends and earn $100 when they complete their first flight!
           </p>
@@ -67,10 +66,10 @@ const ReferralProgram = () => {
       </Card>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {referralStats.map((stat, index) => (
           <Card key={index} className="border border-gray-200">
-            <CardContent className="">
+            <CardContent className="p-4 sm:p-6">
               <p className="text-gray-600 text-sm mb-2">{stat.label}</p>
               <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
             </CardContent>
@@ -81,12 +80,12 @@ const ReferralProgram = () => {
       {/* Referral History */}
       <div>
         <h2 className="text-lg font-semibold text-gray-900 mb-6">Referral History</h2>
-        
+
         <div className="space-y-4">
           {referralHistory.map((referral) => (
             <Card key={referral.id} className="border border-gray-200">
-              <CardContent className="">
-                <div className="flex items-center justify-between">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900 mb-1">
                       {referral.name}
@@ -95,21 +94,21 @@ const ReferralProgram = () => {
                       {referral.date}
                     </p>
                   </div>
-                  
-                  <div className="flex items-center gap-4">
-                    <Badge 
+
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                    <Badge
                       variant="secondary"
                       className={`
-                        ${referral.status === 'Completed' 
-                          ? 'bg-green-100 text-green-800 hover:bg-green-200' 
+                        ${referral.status === 'Completed'
+                          ? 'bg-green-100 text-green-800 hover:bg-green-200'
                           : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
-                        } border-0 font-medium px-3 py-1
+                        } border-0 font-medium px-3 py-1 whitespace-nowrap
                       `}
                     >
                       {referral.status}
                     </Badge>
-                    
-                    <span className="font-semibold text-gray-900 text-lg">
+
+                    <span className="font-semibold text-gray-900 text-lg whitespace-nowrap">
                       {referral.reward}
                     </span>
                   </div>

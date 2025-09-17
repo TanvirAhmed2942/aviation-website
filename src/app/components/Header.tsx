@@ -4,22 +4,34 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Bell,
+  ChevronRight,
   CreditCard,
   DollarSign,
-  Heart,
+  Menu,
   Plane,
   User,
-  ChevronRight,
+  X
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaRegHeart } from "react-icons/fa";
 
 // Data declarations
 const navigationLinks = [
   { label: "Home", href: "/" },
-  { label: "Charter", href: "/charter" },
-  { label: "Empty Legs", href: "/empty-legs" },
-  { label: "Helicopter", href: "/helicopter" },
+  {
+    label: "Charter",
+    hashtag: "charter" // This will create a hash link to /#charter
+  },
+  {
+    label: "Empty Legs",
+    hashtag: "EmptyLegs" // This will create a hash link to /#EmptyLegs
+  },
+  {
+    label: "Helicopter",
+    hashtag: "helicopter" // This will create a hash link to /#helicopter
+  },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -49,13 +61,13 @@ const actionCards = [
 const actionIcons = [
   {
     id: 1,
-    icon: <Heart className="w-5 h-5" />,
+    icon: <FaRegHeart className="w-5 h-5" />,
     className: "text-gray-600 hover:text-gray-900",
     href: "/my-dashboard/searches",
   },
   {
     id: 2,
-    icon: <Bell className="w-7 h-7" />,
+    icon: <Bell className="w-5 h-5" />,
     className: "text-gray-600 hover:text-gray-900 relative",
     hasBadge: true,
     href: "/my-dashboard/notifications",
@@ -70,26 +82,42 @@ const actionIcons = [
 
 export default function Header() {
   const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Helper function to get the correct href
+  const getHref = (item) => {
+    if (item.href) {
+      return item.href; // Regular route
+    } else if (item.hashtag) {
+      return `/#${item.hashtag}`; // Hash link
+    }
+    return "/"; // Fallback
+  };
+
+
+
   return (
     <div className="w-full bg-white border-b border-gray-200">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4 sm:px-2">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-5">
-            <div className="flex items-center space-x-2">
+          {/* Logo and Navigation */}
+          <div className="flex items-center gap-3 sm:gap-5">
+            <div onClick={() => router.push('/')} className="flex items-center cursor-pointer space-x-2">
               <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
                 <Plane className="w-5 h-5 text-white transform rotate-45" />
               </div>
-              <span className="text-xl font-bold text-gray-900">NEXFLIGHT</span>
+              <span className="text-xl font-bold text-gray-900 hidden sm:block">
+                NEXFLIGHT
+              </span>
             </div>
 
-            {/* Navigation Links */}
-            <nav className="hidden md:flex items-center space-x-3">
+            {/* Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center space-x-3">
               {navigationLinks.map((link) => (
-                <Link key={link.label} href={link.href}>
+                <Link key={link.label} href={getHref(link)}>
                   <Button
                     variant="ghost"
-                    className="text-gray-700 hover:text-gray-900 font-medium"
+                    className="text-gray-700 hover:text-gray-900 font-medium text-sm lg:text-base"
                   >
                     {link.label}
                   </Button>
@@ -99,76 +127,101 @@ export default function Header() {
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
-            {actionCards.map((card) => (
-              <Card key={card.id} className={card.className}>
-                <Link href={card.href}>
-                  <div className="flex items-center space-x-2 text-white cursor-pointer">
-                    {card.icon}
-                    <span className={`font-medium text-sm ${card.textColor}`}>
-                      {card.title}
-                    </span>
-                    {card.showArrow && (
-                      <ChevronRight className={`w-4 h-4 ${card.textColor}`} />
-                    )}
-                  </div>
-                </Link>
-              </Card>
-            ))}
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Action Cards - Hidden on mobile, visible on tablet and up */}
+            <div className="hidden sm:flex items-center space-x-2 sm:space-x-3">
+              {actionCards.map((card) => (
+                <Card key={card.id} className={card.className}>
+                  <Link href={card.href}>
+                    <div className="flex items-center space-x-2 text-white cursor-pointer">
+                      {card.icon}
+                      <span className={`font-medium text-sm ${card.textColor}`}>
+                        {card.title}
+                      </span>
+                      {card.showArrow && (
+                        <ChevronRight className={`w-4 h-4 ${card.textColor}`} />
+                      )}
+                    </div>
+                  </Link>
+                </Card>
+              ))}
+            </div>
 
             {/* Action Icons */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               {actionIcons.map((action) => (
                 <Button
                   key={action.id}
                   variant="ghost"
                   size="icon"
-                  className={action.className}
+                  className={`h-10 w-10 rounded-full ${action.className}`}
                   onClick={() => action.href && router.push(action.href)}
                 >
                   {action.icon}
                   {action.hasBadge && (
-                    <Badge className="absolute top-1 right-2 w-2 h-2 p-0 bg-red-500 rounded-full"></Badge>
+                    <Badge className="absolute top-2 right-2 w-2 h-2 p-0 bg-red-500 rounded-full"></Badge>
                   )}
                 </Button>
               ))}
             </div>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button variant="ghost" size="icon">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation (hidden by default) */}
-      <div className="md:hidden border-t border-gray-200">
-        <div className="px-4 py-3 space-y-2">
-          {navigationLinks.map((link) => (
-            <Link key={link.label} href={link.href}>
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden ml-1 sm:ml-0">
               <Button
                 variant="ghost"
-                className="w-full justify-start text-gray-700 hover:text-gray-900"
+                size="icon"
+                className="h-10 w-10"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                {link.label}
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </Button>
-            </Link>
-          ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div
+          className={`lg:hidden border-t border-gray-200 transition-all duration-300 ease-in-out ${mobileMenuOpen
+            ? "max-h-96 opacity-100"
+            : "max-h-0 opacity-0 overflow-hidden"
+            }`}
+        >
+          <div className="px-2 py-3 space-y-1">
+            {navigationLinks.map((link) => (
+              <Link key={link.label} href={getHref(link)}>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-gray-700 hover:text-gray-900"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
+
+            {/* Mobile-only action cards */}
+            <div className="sm:hidden grid grid-cols-1 gap-2 mt-3 px-2">
+              {actionCards.map((card) => (
+                <Card key={card.id} className={card.className}>
+                  <Link href={card.href} onClick={() => setMobileMenuOpen(false)}>
+                    <div className="flex items-center space-x-2 text-white cursor-pointer">
+                      {card.icon}
+                      <span className={`font-medium text-sm ${card.textColor}`}>
+                        {card.title}
+                      </span>
+                      {card.showArrow && (
+                        <ChevronRight className={`w-4 h-4 ${card.textColor}`} />
+                      )}
+                    </div>
+                  </Link>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

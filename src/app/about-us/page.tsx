@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Image from 'next/image';
 import {
   Accordion,
   AccordionContent,
@@ -6,7 +7,6 @@ import {
   AccordionTrigger,
 } from "../../components/ui/accordion";
 import { Button } from "../../components/ui/button";
-import Navber from "../components/home/Hero/Navber";
 
 const PrivateJetServices = () => {
   const stats = [
@@ -53,33 +53,39 @@ const PrivateJetServices = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <section
-        className="relative bg-gradient-to-r z-50 from-blue-600 to-indigo-800 text-white bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/about/hero.jpg')" }}
-      >
-        <Navber />
-        <div className="absolute inset-0 bg-indigo-950/20"></div>
-        <div className="flex flex-col items-center justify-center pb-32 gap-6 h-[700px] ">
-          <h1 className="text-5xl">About NEXFLIGHT</h1>
-          <p className="text-xl">
-            We&apos;re revolutionizing private aviation by making luxury air
-            travel more accessible, efficient, and sustainable.
-          </p>
-        </div>
-      </section>
+      <div className="relative">
+        <section
+          className="relative z-50 h-[300px] sm:h-[400px] md:h-[700px] text-white flex items-end sm:pb-28 pb-10 justify-center 
+             bg-gradient-to-r from-blue-600 to-indigo-800 
+             bg-cover"
+          style={{ backgroundImage: "url('/images/about/hero2.jpg')" }}
+        >
+          <div className="relative z-10 text-center px-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">About NEXFLIGHT</h1>
+            <p className="mt-4 text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
+              We&apos;re revolutionizing private aviation by making luxury air travel more accessible, efficient, and sustainable.
+            </p>
+
+          </div>
+
+          {/* Optional overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
+        </section>
+      </div>
+
       {/* Stats Section */}
-      <div className="border-t border-gray-200 pt-10">
+      <div className="pt-5 px-4 sm:px-6">
         <div className="container mx-auto py-2">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="text-center border border-gray-200 py-5 shadow-lg rounded-lg"
+                className="text-center border border-gray-200 py-4 sm:py-5 shadow-lg rounded-lg"
               >
-                <div className="text-3xl font-bold text-gray-900 mb-2">
+                <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                   {stat.number}
                 </div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+                <div className="text-xs sm:text-sm text-gray-600">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -87,42 +93,43 @@ const PrivateJetServices = () => {
       </div>
 
       {/* Services Section */}
-      <div className="container mx-auto px-6 py-16">
-        <div className="space-y-16">
+      <div className="container mx-auto px-4 sm:px-6 py-8 md:py-16">
+        <div className="space-y-12 md:space-y-16">
           {services.map((service) => (
             <div
               key={service.id}
-              className={`flex flex-col lg:flex-row items-center gap-12 ${
-                service.imagePosition === "right" ? "lg:flex-row-reverse" : ""
-              }`}
+              className={`flex flex-col ${service.imagePosition === "right" ? "lg:flex-row-reverse" : "lg:flex-row"} items-center gap-6 md:gap-8 lg:gap-12`}
             >
               {/* Image */}
-              <div className="flex-1">
+              <div className="flex-1 w-full">
                 <div className="relative">
-                  <img
+                  <Image
                     src={service.image}
                     alt={service.title}
+                    width={800}
+                    height={100}
+
                     className="w-full h-auto object-cover rounded-lg shadow-sm"
                   />
                 </div>
               </div>
 
               {/* Content */}
-              <div className="flex-1 space-y-4">
-                <h2 className="text-2xl font-semibold text-gray-900 leading-tight">
+              <div className="flex-1 space-y-3 md:space-y-4">
+                <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 leading-tight">
                   {service.title}
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-sm">
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                   {service.description}
                 </p>
               </div>
             </div>
           ))}
 
-          <section className="bg-[#1B365D] text-white py-16 px-4 rounded-lg">
+          <section className="bg-[#1B365D] text-white py-12 md:py-16 px-4 sm:px-6 rounded-lg">
             <div className="container mx-auto text-center">
-              <h1 className="text-4xl font-bold mb-8">Our Mission</h1>
-              <p className="text-lg leading-relaxed mb-8 max-w-3xl mx-auto">
+              <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8">Our Mission</h1>
+              <p className="text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-3xl mx-auto">
                 To transform private aviation by combining cutting-edge
                 technology with exceptional service, making luxury air travel
                 more accessible while maintaining the highest standards of
@@ -130,7 +137,7 @@ const PrivateJetServices = () => {
               </p>
               <Button
                 variant="outline"
-                className="bg-transparent cursor-pointer border-white text-white hover:bg-white hover:text-slate-800"
+                className="bg-transparent cursor-pointer border-white text-white hover:bg-white hover:text-slate-800 text-sm md:text-base"
               >
                 Learn More About Our Services
               </Button>
@@ -138,37 +145,37 @@ const PrivateJetServices = () => {
           </section>
         </div>
 
-        <section className="py-10">
+        <section className="py-8 md:py-10">
           <div className="container mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {/* Safety First */}
-              <div className="text-start px-6 border border-gray-200 shadow py-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-4 text-slate-800">
+              <div className="text-start px-4 sm:px-6 border border-gray-200 shadow py-4 md:py-6 rounded-lg">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-slate-800">
                   Safety First
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                   We maintain the highest safety standards in the industry, with
                   rigorous protocols and continuous monitoring.
                 </p>
               </div>
 
               {/* Innovation */}
-              <div className="text-start px-6 border border-gray-200 shadow py-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-4 text-slate-800">
+              <div className="text-start px-4 sm:px-6 border border-gray-200 shadow py-4 md:py-6 rounded-lg">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-slate-800">
                   Innovation
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                   We leverage cutting-edge technology to enhance every aspect of
                   private air travel.
                 </p>
               </div>
 
               {/* Sustainability */}
-              <div className="text-start px-6 border border-gray-200 shadow py-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-4 text-slate-800">
+              <div className="text-start px-4 sm:px-6 border border-gray-200 shadow py-4 md:py-6 rounded-lg">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-slate-800">
                   Sustainability
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                   We&apos;re committed to reducing our environmental impact
                   through sustainable practices and green initiatives.
                 </p>
@@ -178,13 +185,11 @@ const PrivateJetServices = () => {
         </section>
 
         <section className="relative py-0">
-          {/* Main Aircraft Image */}
-
           {/* Company Section */}
-          <div className="bg-slate-800 text-white py-16 px-4 relative overflow-hidden">
+          <div className="bg-slate-800 text-white py-12 md:py-16 px-4 sm:px-6 relative overflow-hidden">
             <div className="max-w-4xl mx-auto text-center relative z-10">
-              <h2 className="text-4xl font-bold mb-8">Our Company</h2>
-              <p className="text-lg leading-relaxed mb-8 max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8">Our Company</h2>
+              <p className="text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-3xl mx-auto">
                 NexFlight is your trusted private jet brokerage, offering
                 seamless access to luxury charters worldwide. Whether for
                 business or leisure, we provide personalized solutions to
@@ -192,7 +197,7 @@ const PrivateJetServices = () => {
               </p>
               <Button
                 variant="outline"
-                className="bg-transparent border-white text-white hover:bg-white hover:text-slate-800"
+                className="bg-transparent border-white text-white hover:bg-white hover:text-slate-800 text-sm md:text-base"
               >
                 View our E-brochure
               </Button>
@@ -200,51 +205,38 @@ const PrivateJetServices = () => {
           </div>
         </section>
 
-        <section className="py-16 px-4 bg-gray-50">
+        <section className="py-12 md:py-16 px-4 sm:px-6 bg-gray-50">
           <div className="container mx-auto">
-            <div className="flex justify-between items-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800">Latest News</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-8 md:mb-12 gap-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-800">Latest News</h2>
               <div className="flex items-center text-slate-600 hover:text-slate-800 cursor-pointer transition-colors">
-                <span className="mr-2">View All Posts</span>
+                <span className="mr-2 text-sm md:text-base">View All Posts</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {/* Article 1 */}
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="h-48 bg-gradient-to-b from-gray-200 to-gray-300 relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg
-                      width="120"
-                      height="40"
-                      viewBox="0 0 120 40"
-                      className="opacity-60"
-                    >
-                      <ellipse cx="60" cy="20" rx="50" ry="8" fill="#64748b" />
-                      <ellipse cx="40" cy="20" rx="20" ry="3" fill="#64748b" />
-                      <circle cx="25" cy="18" r="1" fill="#94a3b8" />
-                      <circle cx="35" cy="18" r="1" fill="#94a3b8" />
-                      <circle cx="45" cy="18" r="1" fill="#94a3b8" />
-                    </svg>
-                  </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden h-[400px] flex flex-col">
+                <div className="flex-shrink-0">
+                  <Image src={"/images/blog/image1.jpg"} height={200} className='w-full h-48 sm:h-52 object-cover' width={1000} alt='' />
                 </div>
-                <div className="p-6">
-                  <div className="text-sm text-gray-500 mb-2">
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  <div className="text-xs sm:text-sm text-gray-500 mb-2">
                     March 15, 2025 • Industry Trends
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                  <h3 className="text-lg md:text-xl font-semibold text-slate-800 mb-3 flex-grow">
                     The Future of Private Aviation
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 mb-4 text-sm md:text-base flex-grow">
                     Discover how technology is shaping the future of private
                     flights.
                   </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">
+                  <div className="flex justify-between items-center mt-auto">
+                    <span className="text-xs sm:text-sm text-gray-500">
                       By Alex Johnson
                     </span>
-                    <span className="text-blue-600 cursor-pointer hover:text-blue-800">
+                    <span className="text-blue-600 cursor-pointer hover:text-blue-800 text-sm md:text-base">
                       Read More
                     </span>
                   </div>
@@ -252,39 +244,25 @@ const PrivateJetServices = () => {
               </div>
 
               {/* Article 2 */}
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-blue-200 via-teal-200 to-green-200 relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg
-                      width="100"
-                      height="30"
-                      viewBox="0 0 100 30"
-                      className="opacity-70"
-                    >
-                      <ellipse cx="50" cy="15" rx="40" ry="6" fill="#0891b2" />
-                      <ellipse cx="35" cy="15" rx="15" ry="2" fill="#0891b2" />
-                      <path
-                        d="M 75 15 L 85 10 L 87 12 L 85 15 L 87 18 L 85 20 Z"
-                        fill="#0891b2"
-                      />
-                    </svg>
-                  </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden h-[400px] flex flex-col">
+                <div className="flex-shrink-0">
+                  <Image src={"/images/blog/image2.jpg"} height={200} className='w-full h-48 sm:h-52 object-cover' width={1000} alt='' />
                 </div>
-                <div className="p-6">
-                  <div className="text-sm text-gray-500 mb-2">
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  <div className="text-xs sm:text-sm text-gray-500 mb-2">
                     March 10, 2025 • Travel
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                  <h3 className="text-lg md:text-xl font-semibold text-slate-800 mb-3 flex-grow">
                     Top 5 Private Jet Destinations for
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 mb-4 text-sm md:text-base flex-grow">
                     Explore the most luxurious and exclusive destinations.
                   </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">
+                  <div className="flex justify-between items-center mt-auto">
+                    <span className="text-xs sm:text-sm text-gray-500">
                       By Sarah Williams
                     </span>
-                    <span className="text-blue-600 cursor-pointer hover:text-blue-800">
+                    <span className="text-blue-600 cursor-pointer hover:text-blue-800 text-sm md:text-base">
                       Read More
                     </span>
                   </div>
@@ -292,39 +270,25 @@ const PrivateJetServices = () => {
               </div>
 
               {/* Article 3 */}
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500 relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg
-                      width="140"
-                      height="50"
-                      viewBox="0 0 140 50"
-                      className="opacity-70"
-                    >
-                      <ellipse cx="70" cy="25" rx="60" ry="10" fill="#475569" />
-                      <ellipse cx="50" cy="25" rx="25" ry="4" fill="#475569" />
-                      <circle cx="30" cy="22" r="1.5" fill="#64748b" />
-                      <circle cx="42" cy="22" r="1.5" fill="#64748b" />
-                      <circle cx="54" cy="22" r="1.5" fill="#64748b" />
-                      <circle cx="66" cy="22" r="1.5" fill="#64748b" />
-                    </svg>
-                  </div>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden h-[400px] flex flex-col">
+                <div className="flex-shrink-0">
+                  <Image src={"/images/blog/image3.jpg"} height={200} className='w-full h-48 sm:h-52 object-cover' width={1000} alt='' />
                 </div>
-                <div className="p-6">
-                  <div className="text-sm text-gray-500 mb-2">
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  <div className="text-xs sm:text-sm text-gray-500 mb-2">
                     March 5, 2025 • Sustainability
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                  <h3 className="text-lg md:text-xl font-semibold text-slate-800 mb-3 flex-grow">
                     Sustainable Aviation: The Green
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 mb-4 text-sm md:text-base flex-grow">
                     How private aviation is embracing sustainability.
                   </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">
+                  <div className="flex justify-between items-center mt-auto">
+                    <span className="text-xs sm:text-sm text-gray-500">
                       By Michael Brown
                     </span>
-                    <span className="text-blue-600 cursor-pointer hover:text-blue-800">
+                    <span className="text-blue-600 cursor-pointer hover:text-blue-800 text-sm md:text-base">
                       Read More
                     </span>
                   </div>
@@ -334,9 +298,9 @@ const PrivateJetServices = () => {
           </div>
         </section>
 
-        <section className="py-16 px-4 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-slate-800 mb-12">
+        <section className="py-12 md:py-16 px-4 sm:px-6 bg-white">
+          <div className="container mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-12">
               Frequently Asked Questions
             </h2>
 
@@ -347,10 +311,10 @@ const PrivateJetServices = () => {
               className="w-full"
             >
               <AccordionItem value="item-0">
-                <AccordionTrigger className="text-left font-medium text-slate-800">
+                <AccordionTrigger className="text-left cursor-pointer font-medium text-slate-800 text-sm md:text-base">
                   What types of aircraft are available?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   We offer a diverse fleet ranging from light jets to
                   ultra-long-range aircraft. Our options include popular models
                   like the Gulfstream G650, Bombardier Global 6000, and Cessna
@@ -359,10 +323,10 @@ const PrivateJetServices = () => {
               </AccordionItem>
 
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-left font-medium text-slate-800">
+                <AccordionTrigger className="text-left font-medium text-slate-800 text-sm md:text-base">
                   How far in advance should I book?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   While we can accommodate last-minute requests, we recommend
                   booking at least 24-48 hours in advance for the best aircraft
                   availability and pricing.
@@ -370,10 +334,10 @@ const PrivateJetServices = () => {
               </AccordionItem>
 
               <AccordionItem value="item-2">
-                <AccordionTrigger className="text-left font-medium text-slate-800">
+                <AccordionTrigger className="text-left font-medium text-slate-800 text-sm md:text-base">
                   What&apos;s included in the charter price?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   Our charter price includes the aircraft, crew, fuel,
                   insurance, and standard catering. Additional costs may apply
                   for specific requests, ground transportation, or extended
@@ -382,10 +346,10 @@ const PrivateJetServices = () => {
               </AccordionItem>
 
               <AccordionItem value="item-3">
-                <AccordionTrigger className="text-left font-medium text-slate-800">
+                <AccordionTrigger className="text-left font-medium text-slate-800 text-sm md:text-base">
                   Do you offer empty leg flights?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   Yes, we regularly offer empty leg flights at discounted rates.
                   These flights occur when an aircraft needs to reposition for
                   another charter, providing significant savings for flexible
@@ -394,10 +358,10 @@ const PrivateJetServices = () => {
               </AccordionItem>
 
               <AccordionItem value="item-4">
-                <AccordionTrigger className="text-left font-medium text-slate-800">
+                <AccordionTrigger className="text-left font-medium text-slate-800 text-sm md:text-base">
                   What safety standards do you maintain?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   We adhere to the highest safety standards, including regular
                   aircraft inspections, certified crew training, and compliance
                   with all aviation regulations. All our partner operators are
@@ -406,10 +370,10 @@ const PrivateJetServices = () => {
               </AccordionItem>
 
               <AccordionItem value="item-5">
-                <AccordionTrigger className="text-left font-medium text-slate-800">
+                <AccordionTrigger className="text-left font-medium text-slate-800 text-sm md:text-base">
                   What&apos;s included in the charter price?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   The charter price includes aircraft rental, professional crew,
                   fuel costs, insurance coverage, and complimentary
                   refreshments. Additional services like ground transportation
@@ -418,10 +382,10 @@ const PrivateJetServices = () => {
               </AccordionItem>
 
               <AccordionItem value="item-6">
-                <AccordionTrigger className="text-left font-medium text-slate-800">
+                <AccordionTrigger className="text-left font-medium text-slate-800 text-sm md:text-base">
                   Do you offer empty leg flights?
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   Absolutely! Empty leg flights offer substantial savings when
                   aircraft need to reposition. We maintain an active database of
                   available empty legs and notify registered clients of

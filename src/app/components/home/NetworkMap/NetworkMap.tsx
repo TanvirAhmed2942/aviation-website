@@ -45,7 +45,6 @@ const flightPaths: FlightPath[] = [
 
 const NetworkMap = () => {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
-  // const [hoveredAirport, setHoveredAirport] = useState<Airport | null>(null);
 
   const handleZoomIn = () => {
     setZoomLevel((prev) => Math.min(prev + 0.2, 2));
@@ -60,22 +59,22 @@ const NetworkMap = () => {
   };
 
   return (
-    <section className="py-16 px-6 bg-gray-50">
+    <section className="py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="container mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Our Flight Network
           </h2>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-600 text-base sm:text-lg max-w-3xl mx-auto">
             Explore our extensive network of private flights connecting major
             cities across the United States and international destinations
           </p>
         </div>
 
         {/* Interactive Map */}
-        <Card className="relative overflow-hidden bg-slate-800 border-0 mb-8">
-          <div className="relative h-96 md:h-[500px]">
+        <Card className="relative overflow-hidden bg-slate-800 border-0 mb-6 sm:mb-8">
+          <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px]">
             {/* Map Background */}
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-300"
@@ -119,17 +118,15 @@ const NetworkMap = () => {
                   top: `${airport.y}%`,
                   transform: `translate(-50%, -50%) scale(${zoomLevel})`,
                 }}
-                // onMouseEnter={() => setHoveredAirport(airport)}
-                // onMouseLeave={() => setHoveredAirport(null)}
               >
                 {/* Airport Dot */}
                 <div className="relative">
-                  <div className="w-3 h-3 bg-green-500 rounded-full border-2 border-white shadow-lg group-hover:scale-125 transition-transform duration-200">
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full border-2 border-white shadow-lg group-hover:scale-125 transition-transform duration-200">
                     <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>
                   </div>
 
                   {/* Airport Code Label */}
-                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-white text-xs font-semibold whitespace-nowrap bg-black/60 px-2 py-1 rounded backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="absolute top-3 sm:top-4 left-1/2 transform -translate-x-1/2 text-white text-xs font-semibold whitespace-nowrap bg-black/60 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     {airport.code}
                   </div>
                 </div>
@@ -137,71 +134,71 @@ const NetworkMap = () => {
             ))}
 
             {/* Floating Aircraft Icons */}
-            {[...Array(8)].map((_, i) => (
+            {[...Array(6)].map((_, i) => (
               <div
                 key={i}
                 className="absolute text-white/40 animate-pulse"
                 style={{
-                  left: `${20 + i * 10}%`,
-                  top: `${30 + (i % 3) * 15}%`,
+                  left: `${15 + i * 12}%`,
+                  top: `${25 + (i % 3) * 20}%`,
                   animationDelay: `${i * 0.5}s`,
                   animationDuration: "3s",
                 }}
               >
-                <Plane className="w-4 h-4 transform rotate-45" />
+                <Plane className="w-3 h-3 sm:w-4 sm:h-4 transform rotate-45" />
               </div>
             ))}
 
             {/* Zoom Controls */}
-            <div className="absolute top-4 left-4 flex flex-col gap-2">
+            <div className="absolute top-2 sm:top-3 md:top-4 left-2 sm:left-3 md:left-4 flex flex-col gap-1 sm:gap-2">
               <Button
                 size="sm"
                 variant="secondary"
-                className="w-10 h-10 p-0 bg-black/60 hover:bg-black/80 text-white border-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 p-0 bg-black/60 hover:bg-black/80 text-white border-0"
                 onClick={handleZoomIn}
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
               <Button
                 size="sm"
                 variant="secondary"
-                className="w-10 h-10 p-0 bg-black/60 hover:bg-black/80 text-white border-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 p-0 bg-black/60 hover:bg-black/80 text-white border-0"
                 onClick={handleZoomOut}
               >
-                <Minus className="w-4 h-4" />
+                <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </div>
 
             {/* Map Attribution */}
-            <div className="absolute bottom-2 left-2 text-xs text-white/60">
+            <div className="absolute bottom-1 sm:bottom-2 left-1 sm:left-2 text-[10px] sm:text-xs text-white/60">
               © 2025 NexFlight | Map data © OpenStreetMap contributors
             </div>
           </div>
         </Card>
 
         {/* Network Stats */}
-        <div className="text-center mb-8">
-          <p className="text-gray-600 text-lg mb-6">
+        <div className="text-center mb-6 sm:mb-8">
+          <p className="text-gray-600 text-base sm:text-lg mb-4 sm:mb-6">
             Our network connects over 5,000 airports worldwide, with real-time
             tracking and availability
           </p>
 
           <Button
             size="lg"
-            className="bg-blue-950 hover:bg-blue-900 text-white px-8 py-3"
+            className="bg-blue-950 hover:bg-blue-900 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base"
           >
             Explore Available Routes
           </Button>
         </div>
 
         {/* Decorative Element */}
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
           <div className="flex items-center">
-            <div className="h-px bg-gray-300 w-24"></div>
-            <div className="mx-4 p-3 bg-white rounded-full shadow-sm">
-              <Plane className="w-6 h-6 text-blue-500" />
+            <div className="h-px bg-gray-300 w-16 sm:w-20 md:w-24"></div>
+            <div className="mx-3 sm:mx-4 p-2 sm:p-3 bg-white rounded-full shadow-sm">
+              <Plane className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-500" />
             </div>
-            <div className="h-px bg-gray-300 w-24"></div>
+            <div className="h-px bg-gray-300 w-16 sm:w-20 md:w-24"></div>
           </div>
         </div>
       </div>

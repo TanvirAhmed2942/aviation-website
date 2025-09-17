@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
 import Footer from "./components/Reusable/Footer";
+import HeaderWrapper from './components/HeaderWrapper';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +24,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   // Set this to true when user is logged in, false when logged out
   const isLoggedIn = true;
 
@@ -32,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {isLoggedIn ? <Header /> : null}
+        {isLoggedIn ? <HeaderWrapper/> : null}
         {children}
         <Footer />
       </body>

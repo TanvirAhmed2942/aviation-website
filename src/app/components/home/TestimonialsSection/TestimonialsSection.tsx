@@ -13,7 +13,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // import required modules
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const testimonials = [
   {
@@ -59,20 +59,19 @@ type StarRatingProps = {
 
 const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
   return (
-    <div className="flex gap-1 mb-6">
+    <div className="flex gap-1 mb-4 sm:mb-5 md:mb-6">
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}
-          className={`w-5 h-5 ${
-            i < rating ? "fill-amber-400 text-amber-400" : "text-gray-300"
-          }`}
+          className={`w-4 h-4 sm:w-5 sm:h-5 ${i < rating ? "fill-amber-400 text-amber-400" : "text-gray-300"
+            }`}
         />
       ))}
     </div>
   );
 };
 
-type testimonialData = {
+type TestimonialData = {
   testimonial: {
     id: number;
     name: string;
@@ -82,21 +81,21 @@ type testimonialData = {
   };
 };
 
-const TestimonialCard: React.FC<testimonialData> = ({ testimonial }) => {
+const TestimonialCard: React.FC<TestimonialData> = ({ testimonial }) => {
   return (
-    <Card className="border-0 shadow-sm">
-      <CardContent className="p-8 h-full flex flex-col">
+    <Card className="border-0 shadow-sm h-full">
+      <CardContent className="p-5 sm:p-6 md:p-7 lg:p-8 h-full flex flex-col">
         <StarRating rating={testimonial.rating} />
 
-        <blockquote className="text-gray-800 text-lg leading-relaxed mb-8 flex-grow">
+        <blockquote className="text-gray-800 text-base sm:text-lg leading-relaxed mb-6 sm:mb-7 md:mb-8 flex-grow">
           &ldquo;{testimonial.text}&rdquo;
         </blockquote>
 
         <div className="mt-auto">
-          <div className="font-semibold text-gray-900 text-base mb-1">
+          <div className="font-semibold text-gray-900 text-sm sm:text-base mb-1">
             {testimonial.name}
           </div>
-          <div className="text-gray-500 text-sm font-medium tracking-wide uppercase">
+          <div className="text-gray-500 text-xs sm:text-sm font-medium tracking-wide uppercase">
             {testimonial.route}
           </div>
         </div>
@@ -107,44 +106,68 @@ const TestimonialCard: React.FC<testimonialData> = ({ testimonial }) => {
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="container mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Hear What Our Travelers Love About NexFlight
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-base sm:text-lg">
             2,157 people have said how good NexFlight
           </p>
         </div>
 
         {/* Desktop View - Grid Layout */}
         <div className="hidden lg:block">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-7 lg:gap-8">
             {testimonials.slice(0, 3).map((testimonial) => (
               <TestimonialCard key={testimonial.id} testimonial={testimonial} />
             ))}
           </div>
         </div>
 
-        {/* Mobile/Tablet View - Swiper Carousel */}
-        <div className="lg:hidden">
+        {/* Tablet View - Swiper Carousel with 2 slides */}
+        <div className="hidden md:block lg:hidden">
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={20}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            navigation={true}
+            modules={[Pagination, Navigation, Autoplay]}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            className="testimonial-swiper"
+          >
+            {testimonials.map((testimonial) => (
+              <SwiperSlide key={testimonial.id}>
+                <TestimonialCard testimonial={testimonial} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Mobile View - Swiper Carousel with 1 slide */}
+        <div className="md:hidden">
           <Swiper
             slidesPerView={1}
             spaceBetween={16}
             pagination={{
               clickable: true,
+              dynamicBullets: true,
             }}
             navigation={true}
-            modules={[Pagination, Navigation]}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
+            modules={[Pagination, Navigation, Autoplay]}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
             }}
-            className="mySwiper"
+            className="testimonial-swiper"
           >
             {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.id}>
@@ -155,16 +178,49 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Decorative Element */}
-        <div className="flex justify-center mt-16">
+        <div className="flex justify-center mt-8 sm:mt-10 md:mt-12 lg:mt-16">
           <div className="flex items-center">
-            <div className="h-px bg-gray-300 w-24"></div>
-            <div className="mx-4 p-3 bg-white rounded-full shadow-sm">
-              <Plane className="w-6 h-6 text-blue-500" />
+            <div className="h-px bg-gray-300 w-16 sm:w-20 md:w-24"></div>
+            <div className="mx-3 sm:mx-4 p-2 sm:p-3 bg-white rounded-full shadow-sm">
+              <Plane className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-500" />
             </div>
-            <div className="h-px bg-gray-300 w-24"></div>
+            <div className="h-px bg-gray-300 w-16 sm:w-20 md:w-24"></div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        /* Custom styles for Swiper navigation */
+        .testimonial-swiper :global(.swiper-button-next),
+        .testimonial-swiper :global(.swiper-button-prev) {
+          color: #3b82f6;
+          width: 40px;
+          height: 40px;
+          background: white;
+          border-radius: 50%;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-swiper :global(.swiper-button-next:after),
+        .testimonial-swiper :global(.swiper-button-prev:after) {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        
+        .testimonial-swiper :global(.swiper-pagination-bullet-active) {
+          background: #3b82f6;
+        }
+        
+        /* Responsive navigation button sizes */
+        @media (max-width: 768px) {
+          .testimonial-swiper :global(.swiper-button-next),
+          .testimonial-swiper :global(.swiper-button-prev) {
+            width: 32px;
+            height: 32px;
+            display: none; /* Hide on mobile for better touch experience */
+          }
+        }
+      `}</style>
     </section>
   );
 }

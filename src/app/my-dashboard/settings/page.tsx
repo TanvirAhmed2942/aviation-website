@@ -34,9 +34,9 @@ const Settings = () => {
   };
 
   return (
-    <div className="">
+    <div className="w-full container mx-auto px-4 sm:px-6 lg:px-6">
       {/* Header */}
-      <div className="mb-5">
+      <div className="mb-6">
         <h1 className="text-2xl font-semibold text-gray-900 mb-2">Settings</h1>
         <p className="text-gray-600 border-b pb-3">
           Manage your account preferences
@@ -44,19 +44,19 @@ const Settings = () => {
       </div>
 
       {/* Profile Image Upload */}
-      <section className="flex flex-col gap-4">
-        <div className="border p-4 rounded-lg shadow">
-          <div className="mb-5">
-            <div className="flex items-start gap-4">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+      <section className="space-y-6">
+        <div className="border p-4 sm:p-6 rounded-lg shadow">
+          <div className="mb-6">
+            <div className="flex flex-col sm:flex-row items-start gap-4">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
                 <User className="w-8 h-8 text-gray-400" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-medium text-gray-900 mb-1">Upload Image</h3>
                 <p className="text-sm text-gray-600 mb-3">
                   Min 400x400px, PNG or JPEG
                 </p>
-                <Button variant="outline" className="text-sm">
+                <Button variant="outline" className="text-sm w-full sm:w-auto">
                   Upload
                 </Button>
               </div>
@@ -122,7 +122,7 @@ const Settings = () => {
                 />
               </div>
 
-              <Button className="bg-slate-800 hover:bg-slate-900 text-white">
+              <Button className="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white">
                 Save Changes
               </Button>
             </div>
@@ -130,7 +130,7 @@ const Settings = () => {
         </div>
 
         {/* Change Password */}
-        <div className="border p-4 rounded-lg shadow">
+        <div className="border p-4 sm:p-6 rounded-lg shadow">
           <div className="">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">
               Change Password
@@ -191,7 +191,7 @@ const Settings = () => {
                 />
               </div>
 
-              <Button className="bg-slate-800 hover:bg-slate-900 text-white">
+              <Button className="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white">
                 Update Password
               </Button>
             </div>
@@ -199,7 +199,7 @@ const Settings = () => {
         </div>
 
         {/* Delete Account */}
-        <div className="border border-red-200 p-4 rounded-lg shadow">
+        <div className="border border-red-200 p-4 sm:p-6 rounded-lg shadow">
           <div className="">
             <h2 className="text-lg font-semibold text-red-600 mb-4">
               Delete Account
@@ -212,7 +212,7 @@ const Settings = () => {
 
             <Button
               variant="destructive"
-              className="bg-red-600 hover:bg-red-700 text-white"
+              className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white"
             >
               Delete Account
             </Button>

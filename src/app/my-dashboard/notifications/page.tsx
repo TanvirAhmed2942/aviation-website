@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -57,7 +57,7 @@ const Notifications = () => {
   };
 
   return (
-    <div className="">
+    <div className="w-full container mx-auto px-4 sm:px-6 lg:px-6">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-gray-900 mb-2">Notifications</h1>
@@ -66,11 +66,11 @@ const Notifications = () => {
 
       {/* Recent Notifications */}
       <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <h2 className="text-lg font-semibold text-gray-900">Recent Notifications</h2>
           <Button
             variant="ghost"
-            className="text-black hover:text-gray-900 border hover:bg-gray-50 text-sm font-normal"
+            className="text-black hover:text-gray-900 border hover:bg-gray-50 text-sm font-normal w-full sm:w-auto"
           >
             Mark All as Read
           </Button>
@@ -78,18 +78,18 @@ const Notifications = () => {
 
         <div className="space-y-4">
           {recentNotifications.map((notification) => (
-            <Card key={notification.id} className="border-0  hover:bg-blue-50 transition-colors duration-200">
+            <Card key={notification.id} className="border-0 hover:bg-blue-50 transition-colors duration-200">
               <CardContent className="p-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-gray-900 mb-1">
                       {notification.title}
                     </h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 text-sm break-words">
                       {notification.message}
                     </p>
                   </div>
-                  <span className="text-gray-500 text-sm ml-4">
+                  <span className="text-gray-500 text-sm whitespace-nowrap mt-1 sm:mt-0">
                     {notification.time}
                   </span>
                 </div>
@@ -105,13 +105,14 @@ const Notifications = () => {
 
         <div className="space-y-6">
           {notificationPrefs.map((pref) => (
-            <div key={pref.key} className="flex items-center justify-between py-2">
-              <span className="text-gray-900 font-medium">
+            <div key={pref.key} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-2">
+              <span className="text-gray-900 font-medium min-w-0">
                 {pref.label}
               </span>
               <Switch
                 checked={preferences[pref.key]}
                 onCheckedChange={() => togglePreference(pref.key)}
+                className="mt-1 sm:mt-0"
               />
             </div>
           ))}

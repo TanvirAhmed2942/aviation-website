@@ -80,47 +80,51 @@ const AircraftComparison = () => {
   ];
 
   return (
-    <div className="py-16 px-4">
+    <div className="py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
         {/* Header Section */}
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-10 md:mb-12">
           {/* Airplane Icon */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4 sm:mb-5 md:mb-6">
             <div className="relative">
               <svg
-                className="w-12 h-12 text-blue-400"
+                className="w-10 h-10 sm:w-12 sm:h-12 text-blue-400"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
               </svg>
-              {/* Decorative lines */}
-              <div className="absolute top-1/2 -left-24 w-16 h-px bg-blue-300 transform -translate-y-1/2"></div>
-              <div className="absolute top-1/2 -right-24 w-16 h-px bg-blue-300 transform -translate-y-1/2"></div>
+              {/* Decorative lines - Hidden on mobile */}
+              <div className="hidden md:block absolute top-1/2 -left-16 lg:-left-24 w-12 lg:w-16 h-px bg-blue-300 transform -translate-y-1/2"></div>
+              <div className="hidden md:block absolute top-1/2 -right-16 lg:-right-24 w-12 lg:w-16 h-px bg-blue-300 transform -translate-y-1/2"></div>
             </div>
           </div>
 
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Aircraft Comparison</h1>
-          <p className="text-lg text-gray-600 mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">
+            Aircraft Comparison
+          </h1>
+          <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 text-center max-w-2xl mx-auto">
             Compare specifications across our fleet to find the perfect aircraft for your journey
           </p>
 
           {/* Category Header */}
-          <div className="bg-white p-4 rounded-lg shadow-sm mb-8">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold text-gray-900">Very Light Jets</h2>
-              <div className="flex items-center space-x-8 text-sm text-gray-600">
-                <div className="flex items-center space-x-2">
-                  <Users className="w-4 h-4" />
+          <div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 text-center sm:text-left">
+                Very Light Jets
+              </h2>
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:flex sm:items-center sm:space-x-4 md:space-x-6 lg:space-x-8 text-xs sm:text-sm text-gray-600 gap-2 sm:gap-0">
+                <div className="flex items-center justify-center sm:justify-start space-x-1 sm:space-x-2">
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>2 - 4 passengers</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Triangle className="w-4 h-4" />
-                  <span>700 - 1400 nautical miles</span>
+                <div className="flex items-center justify-center sm:justify-start space-x-1 sm:space-x-2">
+                  <Triangle className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span>700 - 1400 nm</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <DollarSign className="w-4 h-4" />
-                  <span>$2,750 - $3,500 per hour</span>
+                <div className="flex items-center justify-center sm:justify-start space-x-1 sm:space-x-2 col-span-2 xs:col-span-1">
+                  <DollarSign className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span>$2,750 - $3,500/hr</span>
                 </div>
               </div>
             </div>
@@ -128,42 +132,50 @@ const AircraftComparison = () => {
         </div>
 
         {/* Aircraft Grid */}
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12">
           {aircraftData.map((aircraft) => (
-            <Card key={aircraft.id} className="overflow-hidden py-0 hover:shadow-lg transition-shadow duration-300 bg-white">
+            <Card key={aircraft.id} className="overflow-hidden py-0 hover:shadow-lg transition-shadow duration-300 bg-white group hover:-translate-y-1 transition-transform">
               {/* Aircraft Image */}
-              <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-               <Image src={aircraft.image} width={0} height={0} alt='aircraft image' sizes="100vw"
-                  className="w-full h-60 object-cover"/>
+              <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                <Image
+                  src={aircraft.image}
+                  width={300}
+                  height={200}
+                  alt={`${aircraft.name} aircraft`}
+                  sizes="(max-width: 475px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
 
-              <CardContent className="p-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">{aircraft.name}</h3>
+              <CardContent className="p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
+                  {aircraft.name}
+                </h3>
 
                 {/* Specifications */}
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Pax</span>
-                    <span className="font-semibold text-gray-900">{aircraft.pax}</span>
+                    <span className="text-xs sm:text-sm text-gray-600">Pax</span>
+                    <span className="font-semibold text-gray-900 text-sm sm:text-base">{aircraft.pax}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Range (nm)</span>
-                    <span className="font-semibold text-gray-900">{aircraft.range}</span>
+                    <span className="text-xs sm:text-sm text-gray-600">Range (nm)</span>
+                    <span className="font-semibold text-gray-900 text-sm sm:text-base">{aircraft.range}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Speed (KTAS)</span>
-                    <span className="font-semibold text-gray-900">{aircraft.speed}</span>
+                    <span className="text-xs sm:text-sm text-gray-600">Speed (KTAS)</span>
+                    <span className="font-semibold text-gray-900 text-sm sm:text-base">{aircraft.speed}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Cabin height (ft)</span>
-                    <span className="font-semibold text-gray-900">{aircraft.cabinHeight}</span>
+                    <span className="text-xs sm:text-sm text-gray-600">Cabin height (ft)</span>
+                    <span className="font-semibold text-gray-900 text-sm sm:text-base">{aircraft.cabinHeight}</span>
                   </div>
                 </div>
 
                 {/* See Details Button */}
                 <Button
                   variant="outline"
-                  className="w-full border-gray-300 cursor-pointer text-gray-700 hover:bg-gray-50"
+                  className="w-full border-gray-300 cursor-pointer text-gray-700 hover:bg-gray-50 text-xs sm:text-sm py-2 h-auto"
                 >
                   SEE DETAILS
                 </Button>
@@ -175,9 +187,9 @@ const AircraftComparison = () => {
         {/* Bottom Section */}
         <div className="text-center">
           {/* Airplane Icon */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4 sm:mb-5 md:mb-6">
             <svg
-              className="w-8 h-8 text-blue-400"
+              className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-blue-400"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -185,7 +197,7 @@ const AircraftComparison = () => {
             </svg>
           </div>
 
-          <Button className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3">
+          <Button className="bg-slate-800 hover:bg-slate-700 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base">
             View All Aircraft Categories
           </Button>
         </div>
