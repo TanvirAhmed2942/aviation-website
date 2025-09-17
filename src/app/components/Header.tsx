@@ -10,32 +10,57 @@ import {
   Menu,
   Plane,
   User,
-  X
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { FaRegHeart } from "react-icons/fa";
 
+// Type definitions
+type NavigationLink = {
+  label: string;
+  href?: string;
+  hashtag?: string;
+};
+
+type ActionCard = {
+  id: number;
+  title: string;
+  icon: ReactNode;
+  className: string;
+  textColor: string;
+  showArrow: boolean;
+  href: string;
+};
+
+type ActionIcon = {
+  id: number;
+  icon: ReactNode;
+  className: string;
+  href: string;
+  hasBadge?: boolean;
+};
+
 // Data declarations
-const navigationLinks = [
+const navigationLinks: NavigationLink[] = [
   { label: "Home", href: "/" },
   {
     label: "Charter",
-    hashtag: "charter" // This will create a hash link to /#charter
+    hashtag: "charter", // This will create a hash link to /#charter
   },
   {
     label: "Empty Legs",
-    hashtag: "EmptyLegs" // This will create a hash link to /#EmptyLegs
+    hashtag: "EmptyLegs", // This will create a hash link to /#EmptyLegs
   },
   {
     label: "Helicopter",
-    hashtag: "helicopter" // This will create a hash link to /#helicopter
+    hashtag: "helicopter", // This will create a hash link to /#helicopter
   },
   { label: "Contact", href: "/contact" },
 ];
 
-const actionCards = [
+const actionCards: ActionCard[] = [
   {
     id: 1,
     title: "Golden Jet Card",
@@ -58,7 +83,7 @@ const actionCards = [
   },
 ];
 
-const actionIcons = [
+const actionIcons: ActionIcon[] = [
   {
     id: 1,
     icon: <FaRegHeart className="w-5 h-5" />,
@@ -82,10 +107,10 @@ const actionIcons = [
 
 export default function Header() {
   const router = useRouter();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   // Helper function to get the correct href
-  const getHref = (item) => {
+  const getHref = (item: NavigationLink): string => {
     if (item.href) {
       return item.href; // Regular route
     } else if (item.hashtag) {
@@ -94,15 +119,16 @@ export default function Header() {
     return "/"; // Fallback
   };
 
-
-
   return (
     <div className="w-full bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 sm:px-2">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Navigation */}
           <div className="flex items-center gap-3 sm:gap-5">
-            <div onClick={() => router.push('/')} className="flex items-center cursor-pointer space-x-2">
+            <div
+              onClick={() => router.push("/")}
+              className="flex items-center cursor-pointer space-x-2"
+            >
               <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
                 <Plane className="w-5 h-5 text-white transform rotate-45" />
               </div>
@@ -185,10 +211,11 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         <div
-          className={`lg:hidden border-t border-gray-200 transition-all duration-300 ease-in-out ${mobileMenuOpen
-            ? "max-h-96 opacity-100"
-            : "max-h-0 opacity-0 overflow-hidden"
-            }`}
+          className={`lg:hidden border-t border-gray-200 transition-all duration-300 ease-in-out ${
+            mobileMenuOpen
+              ? "max-h-96 opacity-100"
+              : "max-h-0 opacity-0 overflow-hidden"
+          }`}
         >
           <div className="px-2 py-3 space-y-1">
             {navigationLinks.map((link) => (
@@ -207,7 +234,10 @@ export default function Header() {
             <div className="sm:hidden grid grid-cols-1 gap-2 mt-3 px-2">
               {actionCards.map((card) => (
                 <Card key={card.id} className={card.className}>
-                  <Link href={card.href} onClick={() => setMobileMenuOpen(false)}>
+                  <Link
+                    href={card.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     <div className="flex items-center space-x-2 text-white cursor-pointer">
                       {card.icon}
                       <span className={`font-medium text-sm ${card.textColor}`}>

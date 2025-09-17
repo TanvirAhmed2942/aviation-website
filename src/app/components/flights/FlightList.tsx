@@ -31,12 +31,21 @@ import {
 } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, Clock, Filter, Grid, Heart, List, MapPin, Plane, Users } from "lucide-react";
-import Image from 'next/image';
+import {
+  ArrowRight,
+  Clock,
+  Filter,
+  Grid,
+  Heart,
+  List,
+  MapPin,
+  Plane,
+  Users,
+} from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 type FlightRating = "GOOD" | "FAIR" | "RECOMMENDED";
-
 
 type Flight = {
   id: number;
@@ -51,6 +60,28 @@ type Flight = {
   price: number;
   rating: FlightRating;
   imageUrl: string;
+};
+
+type User = {
+  email: string;
+  firstName: string;
+  lastName: string;
+};
+
+type CountryCode = {
+  code: string;
+  country: string;
+  name: string;
+};
+
+type FormErrors = {
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  otp?: string;
 };
 
 const allFlights: Flight[] = [
@@ -101,7 +132,7 @@ const allFlights: Flight[] = [
   },
 ];
 
-const countryCodes = [
+const countryCodes: CountryCode[] = [
   { code: "+1", country: "US", name: "United States" },
   { code: "+44", country: "GB", name: "United Kingdom" },
   { code: "+91", country: "IN", name: "India" },
@@ -131,27 +162,46 @@ const countryCodes = [
 
 const ITEMS_PER_PAGE = 7;
 
-
 type AuthModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onLoginSuccess: (userData: { email: string; firstName: string; lastName: string }) => void;
+  onLoginSuccess: (userData: User) => void;
+};
+
+type FlightDetailsDrawerProps = {
+  flight: Flight;
+};
+
+type BookingDrawerProps = {
+  flight: Flight;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+};
+
+type FlightCardProps = {
+  flight: Flight;
 };
 // Authentication Modal Component
 function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
-  const [step, setStep] = useState("login");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [countryCode, setCountryCode] = useState("+1");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [otp, setOtp] = useState(["", "", "", ""]);
-  const [errors, setErrors] = useState({});
+  const [step, setStep] = useState<
+    | "login"
+    | "register"
+    | "forgot-password"
+    | "otp-verification"
+    | "reset-password"
+  >("login");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [countryCode, setCountryCode] = useState<string>("+1");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const validateForm = () => {
-    const newErrors = {};
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
 
     if (step === "login") {
       if (!email) newErrors.email = "Email is required";
@@ -195,7 +245,7 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleOtpChange = (index, value) => {
+  const handleOtpChange = (index: number, value: string): void => {
     if (value.length > 1) return;
 
     const newOtp = [...otp];
@@ -204,7 +254,7 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
 
     if (value && index < 3) {
       const inputs = document.querySelectorAll(".otp-input");
-      const nextInput = inputs[index + 1];
+      const nextInput = inputs[index + 1] as HTMLInputElement;
       nextInput?.focus();
     }
 
@@ -213,22 +263,25 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
     }
   };
 
-  const handleOtpKeyDown = (index, e) => {
+  const handleOtpKeyDown = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       const inputs = document.querySelectorAll(".otp-input");
-      const prevInput = inputs[index - 1];
+      const prevInput = inputs[index - 1] as HTMLInputElement;
       prevInput?.focus();
     }
   };
 
-  const handleLogin = () => {
+  const handleLogin = (): void => {
     if (!validateForm()) return;
     console.log("Logging in:", { email, password });
     onLoginSuccess({ email, firstName: "John", lastName: "Doe" });
     handleClose();
   };
 
-  const handleRegister = () => {
+  const handleRegister = (): void => {
     if (!validateForm()) return;
     console.log("Registering:", {
       firstName,
@@ -240,14 +293,14 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
     setStep("login");
   };
 
-  const handleForgotPassword = () => {
+  const handleForgotPassword = (): void => {
     if (!validateForm()) return;
     console.log("Sending reset email to:", email);
     alert("Reset code sent to your email!");
     setStep("otp-verification");
   };
 
-  const handleVerifyOtp = () => {
+  const handleVerifyOtp = (): void => {
     if (!validateForm()) return;
     const code = otp.join("");
     console.log("Verifying OTP:", code);
@@ -255,14 +308,14 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
     setStep("reset-password");
   };
 
-  const handleResetPassword = () => {
+  const handleResetPassword = (): void => {
     if (!validateForm()) return;
     console.log("Resetting password:", { email, password });
     alert("Password reset successful!");
     setStep("login");
   };
 
-  const handleBack = () => {
+  const handleBack = (): void => {
     setErrors({});
 
     if (step === "register") {
@@ -276,7 +329,7 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
     }
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setStep("login");
     setEmail("");
     setPassword("");
@@ -290,7 +343,7 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
     onClose();
   };
 
-  const clearError = (field) => {
+  const clearError = (field: keyof FormErrors): void => {
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
@@ -413,7 +466,9 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                   <Input
                     id="password-login"
                     type="password"
-                    className={`h-10 ${errors.password ? "border-red-500" : ""}`}
+                    className={`h-10 ${
+                      errors.password ? "border-red-500" : ""
+                    }`}
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => {
@@ -457,7 +512,9 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                     <Input
                       id="first-name"
                       placeholder="John"
-                      className={`h-10 ${errors.firstName ? "border-red-500" : ""}`}
+                      className={`h-10 ${
+                        errors.firstName ? "border-red-500" : ""
+                      }`}
                       value={firstName}
                       onChange={(e) => {
                         setFirstName(e.target.value);
@@ -465,9 +522,7 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                       }}
                     />
                     {errors.firstName && (
-                      <p className="text-red-500 text-xs">
-                        {errors.firstName}
-                      </p>
+                      <p className="text-red-500 text-xs">{errors.firstName}</p>
                     )}
                   </div>
 
@@ -476,7 +531,9 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                     <Input
                       id="last-name"
                       placeholder="Doe"
-                      className={`h-10 ${errors.lastName ? "border-red-500" : ""}`}
+                      className={`h-10 ${
+                        errors.lastName ? "border-red-500" : ""
+                      }`}
                       value={lastName}
                       onChange={(e) => {
                         setLastName(e.target.value);
@@ -484,9 +541,7 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                       }}
                     />
                     {errors.lastName && (
-                      <p className="text-red-500 text-xs">
-                        {errors.lastName}
-                      </p>
+                      <p className="text-red-500 text-xs">{errors.lastName}</p>
                     )}
                   </div>
                 </div>
@@ -518,7 +573,10 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                       </SelectTrigger>
                       <SelectContent className="max-h-60">
                         {countryCodes.map((country) => (
-                          <SelectItem key={country.country} value={country.code}>
+                          <SelectItem
+                            key={country.country}
+                            value={country.code}
+                          >
                             <div className="flex items-center gap-2">
                               <span className="text-xs">{country.country}</span>
                               <span>{country.code}</span>
@@ -531,7 +589,9 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                       id="phone"
                       type="tel"
                       placeholder="1234567890"
-                      className={`flex-1 h-10 ${errors.phoneNumber ? "border-red-500" : ""}`}
+                      className={`flex-1 h-10 ${
+                        errors.phoneNumber ? "border-red-500" : ""
+                      }`}
                       value={phoneNumber}
                       onChange={(e) => {
                         const value = e.target.value.replace(/\D/g, "");
@@ -542,9 +602,7 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                     />
                   </div>
                   {errors.phoneNumber && (
-                    <p className="text-red-500 text-xs">
-                      {errors.phoneNumber}
-                    </p>
+                    <p className="text-red-500 text-xs">{errors.phoneNumber}</p>
                   )}
                   <p className="text-xs text-gray-500">
                     Selected: {countryCode} {phoneNumber}
@@ -587,10 +645,15 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                         maxLength={1}
                         value={digit}
                         onChange={(e) =>
-                          handleOtpChange(index, e.target.value.replace(/\D/g, ""))
+                          handleOtpChange(
+                            index,
+                            e.target.value.replace(/\D/g, "")
+                          )
                         }
                         onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                        className={`w-12 h-12 text-center text-lg border-gray-300 focus:ring-blue-500 otp-input ${errors.otp ? "border-red-500" : ""}`}
+                        className={`w-12 h-12 text-center text-lg border-gray-300 focus:ring-blue-500 otp-input ${
+                          errors.otp ? "border-red-500" : ""
+                        }`}
                       />
                     ))}
                   </div>
@@ -610,7 +673,9 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                   <Input
                     id="new-password"
                     type="password"
-                    className={`h-10 ${errors.password ? "border-red-500" : ""}`}
+                    className={`h-10 ${
+                      errors.password ? "border-red-500" : ""
+                    }`}
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => {
@@ -628,7 +693,9 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
                   <Input
                     id="confirm-password"
                     type="password"
-                    className={`h-10 ${errors.confirmPassword ? "border-red-500" : ""}`}
+                    className={`h-10 ${
+                      errors.confirmPassword ? "border-red-500" : ""
+                    }`}
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => {
@@ -769,13 +836,14 @@ function AuthModal({ isOpen, onClose, onLoginSuccess }: AuthModalProps) {
 }
 
 export default function FlightBookingSystem() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [likedFlights, setLikedFlights] = useState(new Set());
-  const [viewMode, setViewMode] = useState('table');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [selectedFlightForBooking, setSelectedFlightForBooking] = useState(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [likedFlights, setLikedFlights] = useState<Set<number>>(new Set());
+  const [viewMode, setViewMode] = useState<"table" | "cards">("table");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [selectedFlightForBooking, setSelectedFlightForBooking] =
+    useState<Flight | null>(null);
 
   const totalPages = Math.ceil(allFlights.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -784,7 +852,7 @@ export default function FlightBookingSystem() {
     startIndex + ITEMS_PER_PAGE
   );
 
-  const handleLoginSuccess = (userData) => {
+  const handleLoginSuccess = (userData: User): void => {
     setIsLoggedIn(true);
     setUser(userData);
     setShowAuthModal(false);
@@ -794,12 +862,12 @@ export default function FlightBookingSystem() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     setIsLoggedIn(false);
     setUser(null);
   };
 
-  const handleBookNowClick = (flight) => {
+  const handleBookNowClick = (flight: Flight): void => {
     if (!isLoggedIn) {
       setSelectedFlightForBooking(flight);
       setShowAuthModal(true);
@@ -808,7 +876,7 @@ export default function FlightBookingSystem() {
     }
   };
 
-  const toggleLike = (flightId) => {
+  const toggleLike = (flightId: number): void => {
     const newLikedFlights = new Set(likedFlights);
     if (newLikedFlights.has(flightId)) {
       newLikedFlights.delete(flightId);
@@ -818,7 +886,7 @@ export default function FlightBookingSystem() {
     setLikedFlights(newLikedFlights);
   };
 
-  const FlightDetailsDrawer = ({ flight }) => (
+  const FlightDetailsDrawer = ({ flight }: FlightDetailsDrawerProps) => (
     <SheetContent className="w-full sm:w-96 overflow-y-auto px-5">
       <SheetHeader className="border-b pb-4">
         <SheetTitle className="flex items-center gap-2 text-lg">
@@ -855,7 +923,9 @@ export default function FlightBookingSystem() {
               <MapPin className="h-4 w-4 text-gray-400 flex-shrink-0" />
               <div className="min-w-0">
                 <p className="font-medium">{flight.aircraft}</p>
-                <p className="text-sm text-gray-600 truncate">{flight.origin}</p>
+                <p className="text-sm text-gray-600 truncate">
+                  {flight.origin}
+                </p>
               </div>
             </div>
           </div>
@@ -866,7 +936,9 @@ export default function FlightBookingSystem() {
               <MapPin className="h-4 w-4 text-gray-400 flex-shrink-0" />
               <div className="min-w-0">
                 <p className="font-medium">KSAT</p>
-                <p className="text-sm text-gray-600 truncate">{flight.destination}</p>
+                <p className="text-sm text-gray-600 truncate">
+                  {flight.destination}
+                </p>
               </div>
             </div>
           </div>
@@ -922,7 +994,11 @@ export default function FlightBookingSystem() {
     </SheetContent>
   );
 
-  const BookingDrawer = ({ flight, isOpen, onOpenChange }) => (
+  const BookingDrawer = ({
+    flight,
+    isOpen,
+    onOpenChange,
+  }: BookingDrawerProps) => (
     <Sheet open={isOpen && isLoggedIn} onOpenChange={onOpenChange}>
       <SheetContent className="w-full sm:w-96 overflow-y-auto ">
         <SheetHeader className="border-b pb-4">
@@ -933,7 +1009,9 @@ export default function FlightBookingSystem() {
           <div className="bg-[#1B365D]  text-white p-4 rounded-lg">
             <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
               <div className="min-w-0 flex-1">
-                <h3 className="font-semibold truncate">{flight.aircraft} → KSAT</h3>
+                <h3 className="font-semibold truncate">
+                  {flight.aircraft} → KSAT
+                </h3>
                 <p className="text-sm opacity-90 break-words">
                   {flight.origin} to {flight.destination}
                 </p>
@@ -977,7 +1055,12 @@ export default function FlightBookingSystem() {
               </div>
               <div>
                 <Label>Luggage Items</Label>
-                <Input type="number" defaultValue="0" min="0" className="mt-1" />
+                <Input
+                  type="number"
+                  defaultValue="0"
+                  min="0"
+                  className="mt-1"
+                />
               </div>
             </div>
 
@@ -1067,7 +1150,7 @@ export default function FlightBookingSystem() {
     </Sheet>
   );
 
-  const FlightCard = ({ flight }) => (
+  const FlightCard = ({ flight }: FlightCardProps) => (
     <div className="bg-white border rounded-lg p-4 sm:p-6 hover:shadow-lg transition-shadow">
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="w-full sm:w-24 h-32 sm:h-16">
@@ -1117,7 +1200,9 @@ export default function FlightBookingSystem() {
             <div>
               <p className="text-gray-500">To</p>
               <p className="font-medium">KSAT</p>
-              <p className="text-xs text-gray-500 truncate">{flight.destination}</p>
+              <p className="text-xs text-gray-500 truncate">
+                {flight.destination}
+              </p>
             </div>
             <div>
               <p className="text-gray-500">Departure</p>
@@ -1127,7 +1212,9 @@ export default function FlightBookingSystem() {
             <div>
               <p className="text-gray-500">Duration</p>
               <p className="font-medium">{flight.duration}</p>
-              <p className="text-xs text-gray-500">{flight.passengers} passengers</p>
+              <p className="text-xs text-gray-500">
+                {flight.passengers} passengers
+              </p>
             </div>
           </div>
 
@@ -1139,10 +1226,11 @@ export default function FlightBookingSystem() {
               onClick={() => toggleLike(flight.id)}
             >
               <Heart
-                className={`h-4 w-4 ${likedFlights.has(flight.id)
-                  ? "fill-red-500 text-red-500"
-                  : "text-gray-400"
-                  }`}
+                className={`h-4 w-4 ${
+                  likedFlights.has(flight.id)
+                    ? "fill-red-500 text-red-500"
+                    : "text-gray-400"
+                }`}
               />
               <span className="sm:hidden">Like</span>
             </Button>
@@ -1179,20 +1267,18 @@ export default function FlightBookingSystem() {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h1 className="text-2xl font-bold text-[#1B365D]">Flight Search Results</h1>
+            <h1 className="text-2xl font-bold text-[#1B365D]">
+              Flight Search Results
+            </h1>
             <p className="text-gray-600">Find your perfect flight</p>
           </div>
           <div className="flex items-center gap-4">
             {isLoggedIn ? (
               <div className="flex items-center gap-3">
                 <span className="text-sm text-gray-600">
-                  Welcome, {user?.firstName || 'User'}!
+                  Welcome, {user?.firstName || "User"}!
                 </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleLogout}
-                >
+                <Button variant="outline" size="sm" onClick={handleLogout}>
                   Logout
                 </Button>
               </div>
@@ -1216,32 +1302,30 @@ export default function FlightBookingSystem() {
             </span>
             <span>{allFlights.length} flights available</span>
             <span className="hidden sm:inline">– Price range: N/A</span>
-            <span className="hidden md:inline">– Results include nearby airports</span>
+            <span className="hidden md:inline">
+              – Results include nearby airports
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="lg:hidden"
-            >
+            <Button variant="outline" size="sm" className="lg:hidden">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
 
             <div className="hidden sm:flex border rounded-md">
               <Button
-                variant={viewMode === 'table' ? 'default' : 'ghost'}
+                variant={viewMode === "table" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => setViewMode('table')}
+                onClick={() => setViewMode("table")}
                 className="rounded-r-none"
               >
                 <List className="h-4 w-4" />
               </Button>
               <Button
-                variant={viewMode === 'cards' ? 'default' : 'ghost'}
+                variant={viewMode === "cards" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => setViewMode('cards')}
+                onClick={() => setViewMode("cards")}
                 className="rounded-l-none"
               >
                 <Grid className="h-4 w-4" />
@@ -1262,7 +1346,7 @@ export default function FlightBookingSystem() {
 
       {/* Desktop View - Table or Cards */}
       <div className="hidden lg:block">
-        {viewMode === 'table' ? (
+        {viewMode === "table" ? (
           <div className="overflow-x-auto rounded-lg border border-gray-200">
             <table className="w-full border-collapse min-w-[1000px]">
               <thead>
@@ -1313,7 +1397,9 @@ export default function FlightBookingSystem() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="font-medium">{flight.aircraft}</div>
-                      <div className="text-sm text-gray-600 max-w-32 truncate">{flight.origin}</div>
+                      <div className="text-sm text-gray-600 max-w-32 truncate">
+                        {flight.origin}
+                      </div>
                     </td>
                     <td className="py-3 px-4">
                       <div className="font-medium">KSAT</div>
@@ -1359,10 +1445,11 @@ export default function FlightBookingSystem() {
                           onClick={() => toggleLike(flight.id)}
                         >
                           <Heart
-                            className={`h-4 w-4 ${likedFlights.has(flight.id)
-                              ? "fill-red-500 text-red-500"
-                              : "text-gray-400"
-                              }`}
+                            className={`h-4 w-4 ${
+                              likedFlights.has(flight.id)
+                                ? "fill-red-500 text-red-500"
+                                : "text-gray-400"
+                            }`}
                           />
                         </Button>
 

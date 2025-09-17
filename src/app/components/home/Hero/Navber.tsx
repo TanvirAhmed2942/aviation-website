@@ -11,22 +11,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const Navbar = () => {
-  const [selected, setSelected] = useState("ENG");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+// Type definitions
+type NavigationLink = {
+  label: string;
+  href?: string;
+  hashtag?: string;
+};
 
-  const links = [
+type LanguageCode = "ENG" | "FR" | "ES";
+
+const Navbar = () => {
+  const [selected, setSelected] = useState<LanguageCode>("ENG");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
+  const links: NavigationLink[] = [
     {
       label: "Charter",
-      hashtag: "charter" // This will create a link to /#charter
+      hashtag: "charter", // This will create a link to /#charter
     },
     {
       label: "Empty Legs",
-      hashtag: "EmptyLegs" // This will create a link to /#EmptyLegs
+      hashtag: "EmptyLegs", // This will create a link to /#EmptyLegs
     },
     {
       label: "Helicopter",
-      hashtag: "helicopter" // This will create a link to /#helicopter
+      hashtag: "helicopter", // This will create a link to /#helicopter
     },
     {
       label: "About",
@@ -38,16 +47,16 @@ const Navbar = () => {
     },
   ];
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = (): void => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  const closeMobileMenu = () => {
+  const closeMobileMenu = (): void => {
     setMobileMenuOpen(false);
   };
 
   // Helper function to get the correct href
-  const getHref = (item) => {
+  const getHref = (item: NavigationLink): string => {
     if (item.href) {
       return item.href; // Regular route
     } else if (item.hashtag) {
@@ -59,14 +68,17 @@ const Navbar = () => {
   return (
     <header className="relative z-20 transition-all duration-1000 translate-y-0 opacity-100">
       <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 lg:py-5 backdrop-blur-sm bg-white/5 border-b border-white/10">
-
         {/* Mobile Menu Button - Only visible on mobile */}
         <button
           onClick={toggleMobileMenu}
           className="lg:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors duration-300"
           aria-label="Toggle mobile menu"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
 
         {/* Desktop Navigation - Hidden on mobile */}
@@ -150,7 +162,10 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-30 bg-black/50 backdrop-blur-sm" onClick={closeMobileMenu}>
+        <div
+          className="lg:hidden fixed inset-0 z-30 bg-black/50 backdrop-blur-sm"
+          onClick={closeMobileMenu}
+        >
           <div className="absolute top-0 left-0 w-80 max-w-[85vw] h-full bg-white/10 backdrop-blur-md border-r border-white/20">
             {/* Mobile Menu Header */}
             <div className="flex justify-between items-center p-6 border-b border-white/20">
